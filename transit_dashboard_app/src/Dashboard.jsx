@@ -14,19 +14,23 @@
  * under the License.
  */
 
-import styled, { createGlobalStyle } from 'styled-components';
+import React from 'react';
+import DashboardCore from '@splunk/dashboard-core';
+import DefaultPreset from '@splunk/dashboard-presets/DefaultPreset';
+import authClient from './auth';
+import { tenantId, cloudApiUrl } from './config/config.json';
+import definition from './definition';
 
-// eslint-disable-next-line no-unused-expressions
-export const GlobalStyle = createGlobalStyle`
-    body {
-        margin: 0;
-    }
-`;
-
-export const Center = styled.div`
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-`;
+export default () => (
+    <div>
+        <DashboardCore
+            preset={DefaultPreset}
+            definition={definition}
+            dashboardContext={{
+                cloudApiUrl,
+                tenantId,
+                authClient,
+            }}
+      />
+  </div>
+);
