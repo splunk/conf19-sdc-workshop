@@ -14,23 +14,11 @@
  * under the License.
  */
 
-import React from 'react';
-import DashboardCore from '@splunk/dashboard-core';
-import DefaultPreset from '@splunk/dashboard-presets/DefaultPreset';
-import authClient from './auth';
-import { tenantId, cloudApiUrl } from './config/config.json';
-import definition from './definition';
+import AuthClient from '@splunkdev/cloud-auth/AuthClient';
 
-export default () => (
-    <div>
-        <DashboardCore
-            preset={DefaultPreset}
-            definition={definition}
-            dataSourceContext={{
-                cloudApiUrl,
-                tenantId,
-                authClient,
-            }}
-      />
-  </div>
-);
+import { auth as authConfig } from './config/config.json';
+
+export default new AuthClient({
+    ...authConfig,
+    redirectUri: window.location.origin, // eslint-disable-line
+});

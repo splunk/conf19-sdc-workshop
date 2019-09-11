@@ -50,9 +50,6 @@ _Note: As you are already logged into the developer portal, your access token is
 
 For a more programmatic approach, you can use `scloud` to explore the SCP APIs:
 
-    $ scloud version
-    scloud version 1.0.0-beta.3-92cdc5b
-    
     $ scloud -u <principal> login
     Password: 
     {
@@ -146,7 +143,7 @@ _Note: App names and titles are unique across all tenants, so for this example i
 
 Create the app with a unique name and title
 
-    $ scloud appreg create-app transit.demo.<TENANT> web -redirect-urls http://localhost:9009 -login-url https://auth.scp.splunk.com -title "Transit Dashboard Demo App for <TENANT>" -description "Copy of the transit dashboard demo app"
+    $ scloud appreg create-app transit.demo.<TENANT> web -redirect-urls http://localhost:3000 -login-url https://auth.scp.splunk.com -title "Transit Dashboard Demo App for <TENANT>" -description "Copy of the transit dashboard demo app"
     {
         "clientId": "<CLIENT_ID>"
     }
