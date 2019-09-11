@@ -50,9 +50,6 @@ _Note: As you are already logged into the developer portal, your access token is
 
 For a more programmatic approach, you can use `scloud` to explore the SCP APIs:
 
-    $ scloud version
-    scloud version 1.0.0-beta.3-92cdc5b
-    
     $ scloud -u <principal> login
     Password: 
     {

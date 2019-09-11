@@ -1,12 +1,10 @@
 /* eslint-disable */
-const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const baseConfig = require('@splunk/webpack-configs/base.config').default;
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const childProcess = require('child_process');
 
 const DEBUG = process.env.NODE_ENV !== 'production';
 

@@ -5,8 +5,6 @@ without a valid written license from Splunk Inc. is PROHIBITED.
 */
 
 import React, { Component } from 'react';
-import WaitSpinner from '@splunk/react-ui/WaitSpinner';
-import Message from '@splunk/react-ui/Message';
 import authClient from './services/auth';
 import Dashboard from './Dashboard';
 import { Center } from './styles';
@@ -41,19 +39,20 @@ class Application extends Component {
         if (error) {
             return (
                 <Center>
-                    <Message type="error">{error}</Message>
+                    <h2 type="error">{error}</h2>
                 </Center>
             );
         }
         if (!loggedIn) {
             return (
                 <Center>
-                    <WaitSpinner screenReaderText="Loading..." />
+                    <h2>Loading...</h2> />
                 </Center>
             );
         }
         return (
-            <Dashboard />
+            /*<Dashboard />*/
+            <h2>Hi!</h2>
         );
     }
 }

@@ -4,11 +4,9 @@ SPLUNK CONFIDENTIAL – Use or disclosure of this material in whole or in part
 without a valid written license from Splunk Inc. is PROHIBITED.
 */
 
-import React, { Component } from 'react';
-import UniversalNavView from '@splunk/universal-nav/UniversalNavView';
+import React from 'react';
 import DashboardCore from '@splunk/dashboard-core';
 import DefaultPreset from '@splunk/dashboard-presets/DefaultPreset';
-import Heading from '@splunk/react-ui/Heading';
 import authClient from './services/auth';
 import { tenantId, cloudApiUrl } from './config/config.json';
 import definition from './definition';
@@ -21,7 +19,7 @@ const options = {
         license: 'https://www.splunk.com/',
     },
     tenantName: tenantId,
-    home: 'https://sdc.splunkbeta.com'
+    home: 'https://sdc.splunkbeta.com',
 };
 const context = {
     idpClient: authClient,
@@ -29,15 +27,14 @@ const context = {
 
 export default () => (
     <div>
-        <UniversalNavView options={options} context={context} />
         <DashboardCore
             preset={DefaultPreset}
             definition={definition}
             dashboardContext={{
-                cloudApiUrl: cloudApiUrl,
-                tenantId: tenantId,
+                cloudApiUrl,
+                tenantId,
                 authClient,
             }}
-        />
-    </div>
+      />
+  </div>
 );

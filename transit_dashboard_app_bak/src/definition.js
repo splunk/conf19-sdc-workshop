@@ -28,8 +28,7 @@ export default {
         },
         num_stops_search: {
             options: {
-                query:
-                    `| from index:main where source="arrivals_and_departures_json" | stats dc('data.references.routes{}.id') as numRoutes`,
+                query: `| from index:main where source="arrivals_and_departures_json" | stats dc('data.references.routes{}.id') as numRoutes`,
                 queryParameters: {
                     earliest: '0',
                     latest: 'now',
