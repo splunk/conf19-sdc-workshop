@@ -1,7 +1,7 @@
 
 # Third-party software credits
 
-The Unlocking all the features of Splunk Developer Cloud Splunk workshop's Transit Dashboard App contains some libraries that were written by others, and are being redistributed as part of this sample app, under their respective open source licenses.
+The Unlocking all the features of Splunk Developer Cloud Splunk workshop contains some libraries that were written by others, and are being redistributed as part of this sample app, under their respective open source licenses.
 
 We want to thank the contributors to these projects:
 
