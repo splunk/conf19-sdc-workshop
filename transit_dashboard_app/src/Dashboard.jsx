@@ -26,7 +26,7 @@ export default () => (
         <DashboardCore
             preset={DefaultPreset}
             definition={definition}
-            dashboardContext={{
+            dataSourceContext={{
                 cloudApiUrl,
                 tenantId,
                 authClient,

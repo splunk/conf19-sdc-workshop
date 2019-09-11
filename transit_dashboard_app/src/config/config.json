@@ -1,7 +1,7 @@
 {
     "auth": {
-        "clientId": "0oa4zs6zjyOFkK4p92p7"
+        "clientId": "YOUR CLIENT ID"
     },
-    "tenantId": "dev2517",
+    "tenantId": "YOUR TENANT ID",
     "cloudApiUrl": "https://api.scp.splunk.com"
 }

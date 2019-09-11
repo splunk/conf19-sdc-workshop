@@ -3,22 +3,28 @@
   "version": "0.1.0",
   "private": true,
   "author": "Splunk",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "third-party-licenses": "node ci/generate_3rdparty.js"
+  },
   "dependencies": {
     "@splunk/dashboard-context": "^7.1.0",
     "@splunk/dashboard-core": "^7.1.0",
     "@splunk/dashboard-presets": "^7.1.0",
     "@splunkdev/cloud-auth": "^1.0.0-beta.5",
+    "babel-polyfill": "^6.26.0",
     "core-js": "^2.6.9",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-scripts": "3.1.1",
     "styled-components": "^4.3.2"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+  "devDependencies": {
+    "markdownlint": "^0.16.0",
+    "npm-license-crawler": "^0.2.1"
   },
   "eslintConfig": {
     "extends": "react-app"

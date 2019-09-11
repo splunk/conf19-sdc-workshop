@@ -1,9 +1,29 @@
 
 # Third-party software credits
 
-The Unlocking all the features of Splunk Developer Cloud Splunk workshop contains some libraries that were written by others, and are being redistributed as part of this sample app, under their respective open source licenses.
+The Unlocking all the features of Splunk Developer Cloud Splunk workshop's Transit Dashboard App contains some libraries that were written by others, and are being redistributed as part of this sample app, under their respective open source licenses.
 
 We want to thank the contributors to these projects:
+
+## babel-polyfill
+
+Name: babel-polyfill
+
+Version: 6.26.0
+
+License: [MIT](https://github.com/babel/babel/tree/master/packages/babel-polyfill)
+
+Repository: [https://github.com/babel/babel/tree/master/packages/babel-polyfill](https://github.com/babel/babel/tree/master/packages/babel-polyfill)
+
+## core-js
+
+Name: core-js
+
+Version: 2.6.9
+
+License: [MIT](https://github.com/zloirock/core-js/raw/master/LICENSE)
+
+Repository: [https://github.com/zloirock/core-js](https://github.com/zloirock/core-js)
 
 ## react-dom
 
