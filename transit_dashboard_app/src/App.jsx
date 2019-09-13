@@ -68,7 +68,6 @@ class App extends Component {
         }
         return (
             <React.Fragment>
-            <h2>Hi!</h2>
             <Dashboard />
             <GlobalStyle />
             </React.Fragment>
