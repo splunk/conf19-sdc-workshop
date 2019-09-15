@@ -16,17 +16,24 @@
 
 import React, { Component } from 'react';
 import authClient from './auth';
+import { tenantId, auth } from './config/config.json';
 import Dashboard from './Dashboard';
-import { Center, GlobalStyle } from './styles';
+import { Center, Err, GlobalStyle, List, ListItem } from './styles';
 
 class App extends Component {
     state = {
+        configured: tenantId !== 'YOUR TENANT ID' && auth.clientId !== 'YOUR CLIENT ID',
         loggedIn: false,
+        pipelineActivated: false,
+        dataIngested: false,
         error: null,
     };
 
     componentDidMount() {
-        this.authenticate();
+        const { configured } = this.state;
+        if (configured === true) {
+            this.authenticate();
+        }
     }
 
     authenticate = async () => {
@@ -39,37 +46,58 @@ class App extends Component {
         } catch (ex) {
             this.setState({
                 loggedIn: false,
-                error: ex.message,
+                error: ex.errorCode,
             });
         }
     };
 
     render() {
-        const { loggedIn, error } = this.state;
+        const { configured, loggedIn, error } = this.state;
         if (error) {
+            if (!loggedIn) {
+                // Clear any tokens from storage
+                authClient.tokenManager.clear();
+                
+                return (
+                    <React.Fragment>
+                        <GlobalStyle />
+                        <Err>Error logging in, try the following:</Err>
+                        <List>
+                            <ListItem>✔ Log into <a href='https://si.scp.splunk.com' target='_blank'>https://si.scp.splunk.com</a> and accept the Terms of Service</ListItem>
+                            <ListItem>✔ Verify that your clientId ({auth.clientId}) corresponds to a web app that you have created <a href='https://sdc.splunkbeta.com/docs/apps/' target='_blank'>[more info]</a></ListItem>
+                            <ListItem>✔ Verify that your tenant is subscribed to the app corresponding to {auth.clientId} <a href='https://sdc.splunkbeta.com/docs/apps/subscribe' target='_blank'>[more info]</a></ListItem>
+                        </List>
+                        <Err>Code: {error}</Err>
+                    </React.Fragment>
+                );
+            }
             return (
                 <React.Fragment>
-                <Center>
-                    <h2 type="error">{error}</h2>
-                </Center>
-                <GlobalStyle />
+                        <GlobalStyle />
+                        <Err>{error}</Err>
+                </React.Fragment>
+            );
+        }
+        if (!configured) {
+            return (
+                <React.Fragment>
+                    <GlobalStyle />
+                    <Err>Configure your clientId and tenantId in src/config/config.json to continue</Err>
                 </React.Fragment>
             );
         }
         if (!loggedIn) {
             return (
                 <React.Fragment>
-                <Center>
-                    <h2>Loading...</h2>
-                </Center>
-                <GlobalStyle />
+                    <GlobalStyle />
+                    <Center>Loading...</Center>
                 </React.Fragment>
             );
         }
         return (
             <React.Fragment>
-            <Dashboard />
-            <GlobalStyle />
+                <GlobalStyle />
+                <Dashboard />
             </React.Fragment>
         );
     }
