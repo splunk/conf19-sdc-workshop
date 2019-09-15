@@ -21,7 +21,6 @@ export const GlobalStyle = createGlobalStyle`
       margin: 0;
       font-family: Helvetica, Arial, sans-serif;
       font-size: x-large;
-      //background-image: linear-gradient(-45deg, #F69B1E, #E61088);
   }
 `;
 
@@ -37,7 +36,22 @@ export const Center = styled.div`
     height: 100vh;
 `;
 
-export const Err = styled.div`
+export const ErrorCircle = styled.span`
+    width: 1em;
+    height: 1em;
+    background: red; 
+    -moz-border-radius: 1em;
+    -webkit-border-radius: 1em;
+    border-radius: 1em;
+    text-align: center;
+    vertical-align: middle;
+    background-color: rgb(200, 100, 80);
+    font-size: 1.5em;
+    color: black;
+    margin-right: 10px;
+`;
+
+export const ErrorMsg = styled.div`
     ${center}
     color: rgb(200, 100, 80);
 `;
