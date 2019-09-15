@@ -18,7 +18,7 @@ import React, { Component } from 'react';
 import authClient from './auth';
 import { tenantId, auth } from './config/config.json';
 import Dashboard from './Dashboard';
-import { Center, Err, GlobalStyle, List, ListItem } from './styles';
+import { Center, ErrorCircle, ErrorMsg, GlobalStyle, List, ListItem } from './styles';
 
 class App extends Component {
     state = {
@@ -55,43 +55,43 @@ class App extends Component {
         const { configured, loggedIn, error } = this.state;
         if (error) {
             if (!loggedIn) {
-                // Clear any tokens from storage
+                // Clear any tokens from storage as login failed
                 authClient.tokenManager.clear();
-                
                 return (
                     <React.Fragment>
                         <GlobalStyle />
-                        <Err>Error logging in, try the following:</Err>
+                        <ErrorMsg><ErrorCircle>!</ErrorCircle>Error logging in, try the following:</ErrorMsg>
                         <List>
                             <ListItem>✔ Log into <a href='https://si.scp.splunk.com' target='_blank'>https://si.scp.splunk.com</a> and accept the Terms of Service</ListItem>
                             <ListItem>✔ Verify that your clientId ({auth.clientId}) corresponds to a web app that you have created <a href='https://sdc.splunkbeta.com/docs/apps/' target='_blank'>[more info]</a></ListItem>
                             <ListItem>✔ Verify that your tenant is subscribed to the app corresponding to {auth.clientId} <a href='https://sdc.splunkbeta.com/docs/apps/subscribe' target='_blank'>[more info]</a></ListItem>
                         </List>
-                        <Err>Code: {error}</Err>
+                        <ErrorMsg>Code: {error}</ErrorMsg>
                     </React.Fragment>
                 );
             }
             return (
-                <React.Fragment>
-                        <GlobalStyle />
-                        <Err>{error}</Err>
-                </React.Fragment>
+                <Center>
+                    <GlobalStyle />
+                    <ErrorMsg><ErrorCircle>!</ErrorCircle>{error}</ErrorMsg>
+                </Center>
             );
         }
         if (!configured) {
             return (
-                <React.Fragment>
+                <Center>
                     <GlobalStyle />
-                    <Err>Configure your clientId and tenantId in src/config/config.json to continue</Err>
-                </React.Fragment>
+                    <ErrorMsg><ErrorCircle>!</ErrorCircle>
+                    Configure your clientId and tenantId in src/config/config.json to continue</ErrorMsg>
+                </Center>
             );
         }
         if (!loggedIn) {
             return (
-                <React.Fragment>
+                <Center>
                     <GlobalStyle />
-                    <Center>Loading...</Center>
-                </React.Fragment>
+                    <div>Loading...</div>
+                </Center>
             );
         }
         return (

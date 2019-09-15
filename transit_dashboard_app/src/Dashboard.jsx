@@ -31,6 +31,7 @@ export default () => (
                 tenantId,
                 authClient,
             }}
+            height='100vh'
       />
   </div>
 );
