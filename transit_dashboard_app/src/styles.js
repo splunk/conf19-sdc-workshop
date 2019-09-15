@@ -16,17 +16,36 @@
 
 import styled, { createGlobalStyle } from 'styled-components';
 
-// eslint-disable-next-line no-unused-expressions
 export const GlobalStyle = createGlobalStyle`
-    body {
-        margin: 0;
-    }
+  body {
+      margin: 0;
+      font-family: Helvetica, Arial, sans-serif;
+      font-size: x-large;
+      //background-image: linear-gradient(-45deg, #F69B1E, #E61088);
+  }
 `;
 
-export const Center = styled.div`
+const center = `
     width: 100vw;
-    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+`;
+
+export const Center = styled.div`
+    ${center}
+    height: 100vh;
+`;
+
+export const Err = styled.div`
+    ${center}
+    color: rgb(200, 100, 80);
+`;
+
+export const List = styled.ul`
+`;
+
+export const ListItem = styled.li`
+    display: block;
+    margin: 2.0em 15vw 2.0em 15vw;
 `;
