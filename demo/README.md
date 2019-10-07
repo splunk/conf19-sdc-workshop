@@ -102,15 +102,29 @@ Before data can be ingested, your tenant must have a pipeline defined and activa
 
 Once you have a pipeline activated, you can simply start sending events to your tenants via the Ingest service. The data ingested below represented some of the current transit agencies in Seattle providing service, as well as the arrival and depature data for the routes the agencies provide during a set period of time:
 
-    $ tail agencies-with-coverage.json | scloud ingest post-events -host localhost -source agencies_with_coverage_json -sourcetype json_no_timestamp -format raw
+    $ tail agencies-with-coverage.json \
+        | scloud ingest post-events \
+            -host localhost \
+            -source agencies_with_coverage_json \
+            -sourcetype json_no_timestamp \
+            -format raw
     
-    $ tail arrivals-and-departures.json | scloud ingest post-events -host localhost -source arrivals_and_departures_json -sourcetype json_no_timestamp -format raw
+    $ tail arrivals-and-departures.json \
+        | scloud ingest post-events \
+            -host localhost \
+            -source arrivals_and_departures_json \
+            -sourcetype json_no_timestamp \
+            -format raw
 
 ### 3. Explore the data through search
 
 After the data is ingested and passed through the pipeline, it will be indexed and available for search. For example, we can see how many routes are currently active for each transit agency:
 
-    $ scloud search "| from index:main where source=\"arrivals_and_departures_json\" | stats count('data.references.agencies{}.id') as refCount by 'data.references.agencies{}.name'" -earliest 0 -latest now
+    $ scloud search "| from index:main where source=\"arrivals_and_departures_json\" \
+        | stats count('data.references.agencies{}.id') as refCount \
+        by 'data.references.agencies{}.name'" \
+          -earliest 0 \
+          -latest now
     {
         "results": [
             ...
