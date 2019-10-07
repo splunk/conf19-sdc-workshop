@@ -17,8 +17,8 @@
 import React from 'react';
 import DashboardCore from '@splunk/dashboard-core';
 import DefaultPreset from '@splunk/dashboard-presets/DefaultPreset';
-import authClient from './auth';
-import { tenantId, cloudApiUrl } from './config/config.json';
+import authClient from './services/auth';
+import { tenant, cloudApiUrl } from './config/config.json';
 import definition from './definition';
 
 export default () => (
@@ -28,7 +28,7 @@ export default () => (
             definition={definition}
             dataSourceContext={{
                 cloudApiUrl,
-                tenantId,
+                tenant,
                 authClient,
             }}
             height='100vh'

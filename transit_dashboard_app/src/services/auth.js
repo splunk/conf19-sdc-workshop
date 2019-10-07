@@ -14,9 +14,8 @@
  * under the License.
  */
 
-import AuthClient from '@splunkdev/cloud-auth/AuthClient';
-
 import { auth as authConfig } from './config/config.json';
+import AuthClient from '@splunkdev/cloud-auth/AuthClient';
 
 export default new AuthClient({
     ...authConfig,

@@ -15,14 +15,15 @@
  */
 
 import React, { Component } from 'react';
-import authClient from './auth';
-import { tenantId, auth } from './config/config.json';
+import authClient from './services/auth';
+import { newServiceClient, PIPELINE_NOT_FOUND } from './services/client';
+import { auth, pipeline, tenant } from './config/config.json';
 import Dashboard from './Dashboard';
 import { Center, ErrorCircle, ErrorMsg, GlobalStyle, List, ListItem } from './styles';
 
 class App extends Component {
     state = {
-        configured: tenantId !== 'YOUR TENANT ID' && auth.clientId !== 'YOUR CLIENT ID',
+        configured: tenant !== 'YOUR TENANT ID' && auth.clientId !== 'YOUR CLIENT ID',
         loggedIn: false,
         pipelineActivated: false,
         dataIngested: false,
@@ -52,7 +53,7 @@ class App extends Component {
     };
 
     render() {
-        const { configured, loggedIn, error } = this.state;
+        const { configured, error, loggedIn, pipelineActivated } = this.state;
         if (error) {
             if (!loggedIn) {
                 // Clear any tokens from storage as login failed
@@ -62,9 +63,9 @@ class App extends Component {
                         <GlobalStyle />
                         <ErrorMsg><ErrorCircle>!</ErrorCircle>Error logging in, try the following:</ErrorMsg>
                         <List>
-                            <ListItem>✔ Log into <a href='https://si.scp.splunk.com' target='_blank'>https://si.scp.splunk.com</a> and accept the Terms of Service</ListItem>
-                            <ListItem>✔ Verify that your clientId ({auth.clientId}) corresponds to a web app that you have created <a href='https://sdc.splunkbeta.com/docs/apps/' target='_blank'>[more info]</a></ListItem>
-                            <ListItem>✔ Verify that your tenant is subscribed to the app corresponding to {auth.clientId} <a href='https://sdc.splunkbeta.com/docs/apps/subscribe' target='_blank'>[more info]</a></ListItem>
+                            <ListItem>✔ Log into <a href='https://si.scp.splunk.com' target='_blank' rel='noopener noreferrer'>https://si.scp.splunk.com</a> and accept the Terms of Service</ListItem>
+                            <ListItem>✔ Verify that your clientId ({auth.clientId}) corresponds to a web app that you have created <a href='https://sdc.splunkbeta.com/docs/apps/' target='_blank' rel='noopener noreferrer'>[more info]</a></ListItem>
+                            <ListItem>✔ Verify that your tenant is subscribed to the app corresponding to {auth.clientId} <a href='https://sdc.splunkbeta.com/docs/apps/subscribe' target='_blank' rel='noopener noreferrer'>[more info]</a></ListItem>
                         </List>
                         <ErrorMsg>Code: {error}</ErrorMsg>
                     </React.Fragment>
@@ -82,7 +83,7 @@ class App extends Component {
                 <Center>
                     <GlobalStyle />
                     <ErrorMsg><ErrorCircle>!</ErrorCircle>
-                    Configure your clientId and tenantId in src/config/config.json to continue</ErrorMsg>
+                    Configure your clientId and tenant in src/config/config.json to continue</ErrorMsg>
                 </Center>
             );
         }
@@ -90,10 +91,41 @@ class App extends Component {
             return (
                 <Center>
                     <GlobalStyle />
-                    <div>Loading...</div>
+                    <div>Logging in...</div>
                 </Center>
             );
         }
+        const client = newServiceClient();
+        if (!pipelineActivated) {
+            client.getSamplePipelineStatus().then((status) => {
+
+            }).catch((e) => {
+                if (e === PIPELINE_NOT_FOUND) {
+                    client.activateSamplePipeline().then(() => {
+                        this.setState({
+                            pipelineActivated: true,
+                        });
+                    }).catch((e) => {
+                        this.setState({
+                            error: `Error activating sample pipeline: ${e}`,
+                        });
+                    });
+                } else {
+                    this.setState({
+                        error: `Error retrieving sample pipeline status: ${e}`,
+                    });
+                }
+            });
+        }
+        // if (!pipelineActivated) {
+            
+        //     return (
+        //         <Center>
+        //             <GlobalStyle />
+        //             <div>Activating pipeline...</div>
+        //         </Center>
+        //     );
+        // }
         return (
             <React.Fragment>
                 <GlobalStyle />

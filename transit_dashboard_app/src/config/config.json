@@ -2,6 +2,14 @@
     "auth": {
         "clientId": "YOUR CLIENT ID"
     },
-    "tenantId": "YOUR TENANT ID",
-    "cloudApiUrl": "https://api.scp.splunk.com"
+    "cloudApiUrl": "https://api.scp.splunk.com",
+    "pipeline": {
+        "dsl": "events=read-splunk-firehose(); write-index(events, literal(\"\"), literal(\"main\"));",
+        "name": "conf19-scp-workshop"
+    },
+    "search": {
+        "agencies": "| from index:main where source=\"agencies_with_coverage_json\"",
+        "arrivals": "| from index:main where source=\"arrivals_and_departures_json\""
+    },
+    "tenant": "YOUR TENANT ID"
 }
