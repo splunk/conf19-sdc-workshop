@@ -157,7 +157,11 @@ _Note: App names and titles are unique across all tenants, so for this example i
 
 Create the app with a unique name and title
 
-    $ scloud appreg create-app transit.demo.<TENANT> web -redirect-urls http://localhost:3000 -login-url https://auth.scp.splunk.com -title "Transit Dashboard Demo App for <TENANT>" -description "Copy of the transit dashboard demo app"
+    $ scloud appreg create-app transit.demo.<TENANT> web \
+        -redirect-urls http://localhost:3000 \
+        -login-url https://auth.scp.splunk.com \
+        -title "Transit Dashboard Demo App for <TENANT>" \
+        -description "Copy of the transit dashboard demo app"
     {
         "clientId": "<CLIENT_ID>"
     }

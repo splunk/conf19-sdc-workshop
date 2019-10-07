@@ -87,6 +87,12 @@ export default {
                 primary: 'num_agencies_search',
             },
         },
+        num_agencies_label: {
+            'type': 'viz.text',
+            'options': {
+                'content': 'Number of Agencies'
+            }
+        },
         num_routes: {
             type: 'viz.singlevalue',
             title: 'Number of Transit Routes',
@@ -95,6 +101,12 @@ export default {
                 primary: 'num_routes_search',
             },
         },
+        num_routes_label: {
+            'type': 'viz.text',
+            'options': {
+                'content': 'Number of Routes'
+            }
+        },
         num_stops: {
             type: 'viz.singlevalue',
             title: 'Number of Transit Stops',
@@ -102,6 +114,12 @@ export default {
             dataSources: {
                 primary: 'num_stops_search',
             },
+        },
+        num_stops_label: {
+            'type': 'viz.text',
+            'options': {
+                'content': 'Number of Stops'
+            }
         },
         trip_distance_board: {
             type: 'viz.bar',
@@ -126,6 +144,33 @@ export default {
             columns: 12,
         },
         structure: [
+            {
+                item: 'num_agencies_label',
+                position: {
+                    x: 1,
+                    y: 1,
+                    w: 4,
+                    h: 1,
+                },
+            },
+            {
+                item: 'num_routes_label',
+                position: {
+                    x: 5,
+                    y: 1,
+                    w: 4,
+                    h: 1,
+                },
+            },
+            {
+                item: 'num_stops_label',
+                position: {
+                    x: 9,
+                    y: 1,
+                    w: 4,
+                    h: 1,
+                },
+            },
             {
                 item: 'num_agencies',
                 position: {
