@@ -13,17 +13,17 @@ If you haven't done so already, [sign into Splunk Investigate](https://si.scp.sp
 - Navigate to the [API Reference](https://sdc.splunkbeta.com/reference/) page
 - Choose the **Identity** API and find the [`GET /principals`](https://sdc.splunkbeta.com/reference/api/identity/v2beta1#endpoint-listPrincipals) endpoint
 ```
-- Select the "Console"
-- Click "Show" to reveal your Authorization token value
-  - Copy the value and store it for later use
-  - *Each API request requires a valid token, for example, when using cURL directly*
-- Click "Submit" to make the API request and observe the response on the right
-  - Copy the `name` value for use in the next API request
+- Click **Console**. 
+- Click **Show** to reveal your Authorization token value.
+  - Copy the value and store it for later use.
+  - *Each API request requires a valid token, for example, when using cURL directly*.
+- Click **Submit** to make the API request and observe the response on the right.
+  - Copy the value of the principal name that is displayed for use in the next API request.
 ```diff
 - Find the [`GET /principals/{p}`](https://sdc.splunkbeta.com/reference/api/identity/v2beta1#endpoint-getPrincipal) endpoint
 ```
-- Choose "Console"
-- Enter your principal value in the form field; click "Submit" to make the API request and observe the response on the right
+- Click **Console**.
+- Enter the value of the principal name in the form field; click **Submit** to make the API request and observe the response on the right
   - Copy the value in the `tenants` array and store it for later use
   - *Each API request will need to target a specific tenant*
 
@@ -42,14 +42,14 @@ Depending on what you choose to do during the workshop, you'll need to ensure yo
 - [Yarn](https://yarnpkg.com/en/docs/install) is another package manager that enables additional workflows for JavaScript applications; a number of commands on the SDC Portal make use of Yarn. 
 
 ## Reproduce the demo!
-1. Create a folder on your computer where you want your project files to reside
+1. Create a folder on your computer where you want your project files to reside.
 
 2. Clone this repo, which will create the `conf19-scp-workshop` folder:
     ``` 
     $ git clone https://github.com/splunk/conf19-scp-workshop
     ```
 
-3. Follow the steps at [./demo/README.md](https://github.com/splunk/conf19-scp-workshop/blob/master/demo/README.md) to setup your tenant (create a pipeline, ingest sample data)
+3. Follow the steps at [./demo/README.md](https://github.com/splunk/conf19-scp-workshop/blob/master/demo/README.md) to set up your tenant (create a pipeline, ingest sample data).
 
 4. Continue on to [./transit_dashboard_app/README.md](https://github.com/splunk/conf19-scp-workshop/blob/master/transit_dashboard_app/README.md) to develop, build, and run the application
 
