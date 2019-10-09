@@ -12,8 +12,8 @@ To run the examples, install the following:
 -   Yarn version 1.3.2 or later
 
 You also need the following values:
--   The name of your Splunk Cloud tenant
--   The client ID from the Splunk Cloud app you created (instructions at ../demo/README.md)
+-   The name of your Splunk Cloud Services tenant
+-   The client ID from the Splunk Cloud Services app you created (instructions at ../demo/README.md)
 ```diff
 -   A passthrough Splunk Data Stream Processor pipeline activated (instructions at ../demo/README.md)
 -   Sample transit data ingested (instructions at ../demo/README.md)
@@ -51,8 +51,8 @@ Follow the instructions below to set up and run this example:
 
 ## Built with
 ```diff
-- * [Splunk Cloud SDK for JavaScript](https://sdc.splunkbeta.com/docs/overview/sdctools/tools_jssdk/), which uses JavaScript to communicate with the Splunk Cloud REST APIs
-- * [Splunk Cloud Auth component](https://sdc.splunkbeta.com/docs/auth/cloud-auth), which provides a UI for users to authenticate with Splunk Cloud
+- * [Splunk Cloud Services SDK for JavaScript](https://sdc.splunkbeta.com/docs/overview/sdctools/tools_jssdk/), which uses JavaScript to communicate with the Splunk Cloud Services REST APIs
+- * [Splunk Cloud Services Auth component](https://sdc.splunkbeta.com/docs/auth/cloud-auth), which provides a UI for users to authenticate with Splunk Cloud Services
 - * [Dashboard component](https://sdc.splunkbeta.com/docs/dashviz/dash), which contains a framework for working with dashboards and visualizations
 ```
 
