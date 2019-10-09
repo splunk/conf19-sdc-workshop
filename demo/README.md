@@ -86,17 +86,13 @@ Before data can be ingested, your tenant must have a pipeline defined and activa
     $ scloud streams compile-dsl -dsl-file passthrough.dsl > passthrough.upl
     
     $ scloud streams create-pipeline -name passthrough -bypass-validation true -data-file passthrough.upl
-    {
-        "id": "<PIPELINE_ID>"
-        ...
-    }
+
+
+_Make note of the `<PIPELINE_ID>` that is returned. You'll need it for the next command._
+
     
     $ scloud streams activate-pipelines <PIPELINE_ID>
-    {
-        "activated": [
-            "<PIPELINE_ID>"
-        ]
-    }
+
     
 ### 2. Ingest sample transit data
 

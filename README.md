@@ -79,9 +79,9 @@ The first person to complete three (3) of the following challenges at your table
 - [ ] Complete the [demo exercises](https://github.com/splunk/conf19-scp-workshop/tree/master/demo) and get the Seattle Transit app running locally with dashboards.
 - [ ] Update the "passthrough" pipeline to perform a simple `eval` on incoming data.
 - [ ] Ingest your own dataset (something **not** found on the Splunk Developer Portal or https://github.com/splunk) and write it to an index other than `main`... and return the data via SPL2.
-  - [Amazon customer review data](https://s3.amazonaws.com/amazon-reviews-pds/readme.html).
-  - [Data.gov](https://www.data.gov/).
-  - [Open Data on AWS](https://registry.opendata.aws/).
+  - [Amazon customer review data](https://s3.amazonaws.com/amazon-reviews-pds/readme.html)
+  - [Data.gov](https://www.data.gov/)
+  - [Open Data on AWS](https://registry.opendata.aws/)
 - [ ] Visualize insights from your own dataset in a dashboard.
 - [ ] Deploy and run an app you've set up locally to somewhere in the cloud (e.g. Heroku). *Hint: you'll need to work with the App Registry service after you've deployed the app and have a new URL its served from.*
 - [ ] Find all the datasets in your tenant using the Catalog service, find all the groups you're a member of using the Identity service, and find your permissions in your tenant using the Identity service.
