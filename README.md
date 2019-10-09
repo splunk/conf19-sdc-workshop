@@ -36,9 +36,9 @@ If you haven't done so already, [sign into Splunk Investigate](https://si.scp.sp
 
 Depending on what you choose to do during the workshop, you'll need to ensure your local development environment is set up to successfully submit API requests, and to access and run code examples and applications.
 
-- [Splunk Cloud CLI](https://github.com/splunk/splunk-cloud-sdk-go/tree/master/cmd/scloud), or `scloud`, is a command-line tool that makes it easy to submit API requests against Splunk Cloud Services.
+- [Splunk Cloud Services CLI](https://github.com/splunk/splunk-cloud-sdk-go/tree/master/cmd/scloud), or `scloud`, is a command-line tool that makes it easy to submit API requests against Splunk Cloud Services.
 - [cURL](https://curl.haxx.se/dlwiz/?type=bin) is a command-line tool that allows you to transfer data to or from a server. A number of example API requests on the Splunk Developer Portal make use of cURL. 
-- [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) is a source code management tool that allows you to run commands to access projects and keep track of changes to application files.
+- [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) is a source code management tool that allows you to run commands to access projects and keep track of changes to application files.
 - [Node.js](https://nodejs.org) is a JavaScript runtime environment that is required for a number of example applications accessed from the Splunk Developer Portal.
 - [npm](https://www.npmjs.com/) is package manager that makes it easy for programmers to publish and share source code of Node.js libraries.
   - The npm client is installed with Node.js. 
@@ -68,9 +68,9 @@ Take a look at the following pages for guidance and experimentation, and log in 
 - Visit Splunk Investigate at https://si.scp.splunk.com to:
   - Add/connect your data through pipelines and wizards.
   - Search (with SPL2), analyze, investigate, and share your data with Workbooks.
-  - Visualize your data with Dashboards. These are new and distinct from the Splunk Enterprise dashboards that you might already be familiar with.
+  - Visualize your data with dashboards, which are new and distinct from the Splunk Enterprise dashboards that you might already be familiar with.
 - **You only need to set up a pipeline once for a given module/dataset.** 
-- Most tutorials and examples will direct you to create a data pipeline, but you won't need to perform this step if you're comfortable with a new dataset flowing into the index via the pipeline you've already activated.
+  Most tutorials and examples will direct you to create a data pipeline, but you won't need to perform this step if you're comfortable with a new dataset flowing into the index via the pipeline you've already activated.
 
 
 ## Challenge yourself!
