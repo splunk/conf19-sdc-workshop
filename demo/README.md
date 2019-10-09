@@ -128,7 +128,7 @@ After the data is ingested and passed through the pipeline, it will be indexed a
 On *nix:
 
     $ scloud search "| from index:main where source=\"arrivals_and_departures_json\" \
-        | stats count('data.references.agencies{}.id') as refCount \
+        | stats count() as refCount \
         by 'data.references.agencies{}.name'" \
           -earliest 0 \
           -latest now
