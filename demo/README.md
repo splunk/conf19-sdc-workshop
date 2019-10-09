@@ -73,7 +73,7 @@ All incoming data moves through the Splunk Data Stream Processor (DSP). Data fro
 
 Indexes are defined as kind of dataset managed by the Catalog service, along with other datasets such as search job or kvstore lookup. They are all knowledge objects that contain data that can be read or written to.
 
-After events are indexed, they can be searched through an updated and refined SPL2. We’ve added a more natural grammar to the SPL, that more closely resembles SQL. All the same stats and eval functions are still there, to allow you to create visualizations.
+After events are indexed, they can be searched through an updated and refined SPL2. We’ve added a more natural grammar to the SPL, that more closely resembles SQL. All the same `stats` and `eval` functions are still there, to allow you to create visualizations.
 
 <kbd>![Ingest and Search Screenshot](./ingest-search.png)</kbd>
 
@@ -102,7 +102,7 @@ Before data can be ingested, your tenant must have a pipeline defined and activa
 
 Once you have a pipeline activated, you can simply start sending events to your tenants using the Ingest service. The data ingested below represented some of the current transit agencies in Seattle providing service, as well as the arrival and depature data for the routes the agencies provide during a set period of time. 
 
-On Mac:
+On *nix:
 
     $ tail agencies-with-coverage.json \
         | scloud ingest post-events \
@@ -120,17 +120,27 @@ On Mac:
 
 On Windows: 
 
-\\ TODO
+    more arrivals-and-departures.json | scloud ingest post-events -host localhost -source arrivals_and_departures_json -sourcetype json_no_timestamp -format raw
+
+    more agencies-with-coverage.json | scloud ingest post-events -host localhost -source agencies_with_coverage_json -sourcetype json_no_timestamp -format raw
+
 
 ### 3. Explore the data through search
 
 After the data is ingested and passed through the pipeline, it will be indexed and available for search. For example, we can see how many routes are currently active for each transit agency:
+
+On *nix:
 
     $ scloud search "| from index:main where source=\"arrivals_and_departures_json\" \
         | stats count('data.references.agencies{}.id') as refCount \
         by 'data.references.agencies{}.name'" \
           -earliest 0 \
           -latest now
+
+On Windows: 
+
+    scloud search "from index:main where source=\"arrivals_and_departures_json\" | stats count() as refCount by 'data.references.agencies{}.name' " -earliest 0 -latest now
+
 
 ### Use Splunk Investigate to get data in
 
@@ -154,7 +164,7 @@ _Note: After data has been ingested, you can even see the number of events passi
 
 Apps are defined in a "home tenant" so that Splunk Cloud Services knows about metadata such as name, description, required permissions, and webhooks that get triggered on subscription events.
 
-_Note: App names and titles are unique across all tenants, so for this example include your tenant name in <TENANT>_
+_Note: App names and titles are unique across all tenants, so for this example include your tenant name in `<TENANT>`._
 
 Create the app with a unique name and title:
 
