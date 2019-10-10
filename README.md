@@ -95,5 +95,5 @@ Whoever finds the *best platform or tool bug* will win a prize! Let a Splunker k
 ## Keep it going!
 
 Remember, you're now a member of the Splunk Cloud Services beta, so keep exploring and experimenting with the beta after the workshop is over! 
-- <sdcbeta@splunk.com>
+- <devinfo@splunk.com>
 - [#sdc](https://splunkdevplatform.slack.com/messages/CD44RNV7G) channel on Slack
