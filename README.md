@@ -36,14 +36,14 @@ If you haven't done so already, [sign into Splunk Investigate](https://si.scp.sp
 
 Depending on what you choose to do during the workshop, you'll need to ensure your local development environment is set up to successfully submit API requests, and to access and run code examples and applications.
 
-- [Splunk Cloud Services CLI](https://github.com/splunk/splunk-cloud-sdk-go/tree/master/cmd/scloud), or `scloud`, is a command-line tool that makes it easy to submit API requests against Splunk Cloud Services.
+- [Splunk Cloud Services CLI](https://github.com/splunk/splunk-cloud-sdk-go/tree/master/cmd/scloud), or `scloud`, is a command-line tool that makes it easy to submit API requests against Splunk Cloud Services. Download and unpack the scloud binary [from the Releases section here](https://github.com/splunk/splunk-cloud-sdk-go/releases).
 - [cURL](https://curl.haxx.se/dlwiz/?type=bin) is a command-line tool that allows you to transfer data to or from a server. A number of example API requests on the Splunk Developer Portal make use of cURL. 
 - [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) is a source code management tool that allows you to run commands to access projects and keep track of changes to application files.
 - [Node.js](https://nodejs.org) is a JavaScript runtime environment that is required for a number of example applications accessed from the Splunk Developer Portal.
 - [npm](https://www.npmjs.com/) is package manager that makes it easy for programmers to publish and share source code of Node.js libraries.
   - The npm client is installed with Node.js. 
   - Make sure you are logged into npm via your command prompt before running `npm` or `npx` commands (`npm login`).
-- [Yarn](https://yarnpkg.com/en/docs/install) is another package manager that enables additional workflows for JavaScript applications. A number of commands on the Splunk Developer Portal make use of Yarn. 
+- [Yarn](https://yarnpkg.com/en/docs/install) is another package manager that enables additional workflows for JavaScript applications, this is used to install packages and run commands in the Transit Dashboard App.
 
 ## Reproduce the demo!
 
