@@ -27,7 +27,7 @@ The most fundamental concepts to understand for this sample app are the identiti
 - Principals are allowed to make API requests against a tenant only if there exists a **membership**.
   - The membership includes specific permissions granted to the principal within the tenant.
 
-<kbd>![SCS Identities Screenshot](./identities.png)</kbd>
+<kbd>![SCS Identities Screenshot](/demo/identities.png)</kbd>
 
 
 
@@ -66,7 +66,7 @@ You can use the Splunk Cloud Services APIs in different ways, depending on your 
 
 The API Reference Console is similar to using a Postman collection, allowing you to make Splunk Cloud Services REST API requests using pre-defined forms and view the formatted results. 
 
-<kbd>![API Console Screenshot](./api-console.png)</kbd>
+<kbd>![API Console Screenshot](/demo/api-console.png)</kbd>
 
 1. Log into the [Splunk Developer Portal](https://developer.splunk.com/scs) with your Splunk.com credentials.
 2. Navigate to the [API Reference](https://developer.splunk.com/scs/reference/) page.
@@ -112,7 +112,7 @@ Indexes are defined as kind of dataset managed by the Catalog service, along wit
 
 After events are indexed, they can be searched through an updated and refined Splunk Search Processing Language (SPL2). SPL2 uses a natural grammar that more closely resembles SQL. All the same `stats` and `eval` functions are still there, to allow you to create visualizations.
 
-<kbd>![Ingest and Search Screenshot](./ingest-search.png)</kbd>
+<kbd>![Ingest and Search Screenshot](/demo/ingest-search.png)</kbd>
 
 Before data can be ingested, your tenant must have a pipeline defined and activated to process the events. For this app, use `scloud` at the command line to create a simple passthrough pipeline that reads events from the Splunk Firehose and writes them to the "main" index. 
 
@@ -187,7 +187,7 @@ On Windows:
 
 Go to [Splunk Investigate](https://si.scp.splunk.com/), select a tenant, click **Data**, then **Add Data** for wizards to help you get data in, set up and configure pipelines, and preview live data streaming into your pipeline!
 
-_Note: After data has been ingested, you can see the number of events passing through each node in your pipeline!_
+**Note:** After data has been ingested, you can see the number of events passing through each node in your pipeline.
 
 
 
@@ -201,15 +201,15 @@ A quick overview of apps in Splunk Cloud Services:
 -  **Apps** are developed with consistent integration points to Splunk Cloud Services. Apps all use the same APIs to configure, run, and develop apps.
 -  **Subscriptions** represent an authorization grant between an app and a tenant, and are required before any API requests can be made. Every subscription results in a webhook call back to the app, so that the app knows it can start.
 
-<kbd>![App Info Screenshot](./app-info.png)</kbd>
+<kbd>![App Info Screenshot](/demo/app-info.png)</kbd>
 
 To define the app and create a subscription with your tenant: 
 
 1. Create the app with a unique name and title.
 
-  Apps are defined in a "home tenant" so that Splunk Cloud Services knows about metadata such as name, description, required permissions, and webhooks that get triggered on subscription events.
+    Apps are defined in a "home tenant" so that Splunk Cloud Services knows about metadata such as name, description, required permissions, and webhooks that get triggered on subscription events.
 
-  _Note: App names and titles are unique across all tenants, so for this sample app, replace `<TENANT>` below with your tenant name._
+    **Note:** App names and titles are unique across all tenants, so for this sample app, replace `<TENANT>` below with your tenant name.
 
     $ scloud appreg create-app transit.demo.<TENANT> web \
         -redirect-urls http://localhost:3000 \
@@ -217,7 +217,7 @@ To define the app and create a subscription with your tenant:
         -title "Transit Dashboard Demo App for <TENANT>" \
         -description "Copy of the transit dashboard demo app"
 
-  _Make note of the `<CLIENT_ID>` that is returned. You'll need it when configuring the Transit Dashboard App._
+    _Make note of the `<CLIENT_ID>` that is returned. You'll need it when configuring the Transit Dashboard App._
 
 2. Create a subscription between your tenant and the app
 
@@ -228,7 +228,7 @@ To define the app and create a subscription with your tenant:
 
 The Transit Dashboard App is a simple dashboard that displays transit route status by stop used by Seattle Transit. 
 
-![App screenshot](./app.png)
+![App screenshot](/demo/app.png)
 
 To build and run the app: 
 
@@ -265,7 +265,7 @@ npm config set @splunk:registry https://repo.splunk.com/artifactory/api/npm/npm-
 ## Resources
 
 For more about the tools that were used to build this app, see: 
-- * [Splunk Cloud Services SDK for JavaScript](https://developer.splunk.com/scs/docs/overview/sdctools/tools_jssdk/), which uses JavaScript to communicate with the Splunk Cloud Services REST APIs.
-- * [Splunk Cloud Services Auth component](https://developer.splunk.com/scs/docs/overview/tools/tools_cloud-auth), which provides a UI for users to authenticate with Splunk Cloud Services.
-- * [Dashboard Framework](https://developer.splunk.com/scs/docs/dashviz), which contains a framework for working with dashboards and visualizations.
-- * [Create React App](https://github.com/facebook/create-react-app), for bootstrapping this app.
+- [Splunk Cloud Services SDK for JavaScript](https://developer.splunk.com/scs/docs/overview/sdctools/tools_jssdk/), which uses JavaScript to communicate with the Splunk Cloud Services REST APIs.
+- [Splunk Cloud Services Auth component](https://developer.splunk.com/scs/docs/overview/tools/tools_cloud-auth), which provides a UI for users to authenticate with Splunk Cloud Services.
+- [Dashboard Framework](https://developer.splunk.com/scs/docs/dashviz), which contains a framework for working with dashboards and visualizations.
+- [Create React App](https://github.com/facebook/create-react-app), for bootstrapping this app.
