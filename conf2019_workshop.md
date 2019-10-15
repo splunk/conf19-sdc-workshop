@@ -44,7 +44,7 @@ Take a look at the following pages for guidance and experimentation. Log in with
 The first person to complete three (3) of the following challenges at your table will win a prize! Just show a Splunker proof of your work.
 - [ ] Get the [Transit Dashboard App](https://github.com/splunk/conf19-scp-workshop/blob/master/README.md) running locally with dashboards.
 - [ ] Update the "passthrough" pipeline to perform a simple `eval` on incoming data.
-- [ ] Ingest your own dataset (something **not** found on the Splunk Developer Portal or https://github.com/splunk) and write it to an index other than "main" and return the data using SPL2.
+- [ ] Ingest your own dataset (something **not** found on the Splunk Developer Portal or `https://github.com/splunk`) and write it to an index other than "main" and return the data using SPL2.
   - [Amazon customer review data](https://s3.amazonaws.com/amazon-reviews-pds/readme.html)
   - [Data.gov](https://www.data.gov/)
   - [Open Data on AWS](https://registry.opendata.aws/)
