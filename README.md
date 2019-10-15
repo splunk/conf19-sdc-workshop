@@ -1,99 +1,271 @@
-# Unlocking all the features of the Splunk Developer Program
+# Transit Dashboard App Demo
 
-This repo features resources and learning opportunities for participants attending the DEV2517 "Unlocking all the features of the Splunk Developer Program - cloud native app development" workshop at .conf19.
+This repository contains the code for the Transit Dashboard App, which demonstrates how to create a dashboard in Splunk Cloud Services. This dashboard displays transit route status by stop used by Seattle Transit agencies. 
 
 
-## Overview
+This readme describes how to set up and use the Transit Dashboard App: 
+-  Key concepts and terminology of Splunk Cloud Services
+-  Set up your environment
+-  Log in to Splunk Cloud Services and use the APIs
+-  Set up a tenant with a data pipeline
+-  Get sample data in and out of your tenant
+-  Define the app and create a subscription
+-  Build and run the Transit Dashboard App
 
-Welcome to the workshop and the Splunk Cloud Services beta! Today, you'll get to work with the Splunk Developer Program offering that features tools and guidance to help you efficiently interact with Splunk Cloud Services and build cloud-native, data-driven apps. If anything goes awry along the way, please get the attention of a Splunker, and we'll be happy to provide you with assistance!
 
-## Orientation
-If you haven't done so already, [sign into Splunk Investigate](https://si.scp.splunk.com) with your Splunk account, accept the Terms Of Service, and choose a name for your Splunk Cloud Services tenant!
 
-```diff
-- Log into the [Splunk Developer Portal](https://sdc.splunkbeta.com) with your splunk.com credentials.
-- Navigate to the [API Reference](https://sdc.splunkbeta.com/reference/) page.
-- Select the **Identity** API and find the [`GET /principals`](https://sdc.splunkbeta.com/reference/api/identity/v2beta1#endpoint-listPrincipals) endpoint.
-```
-- Click **Console**. 
-- Click **Show** to reveal your Authorization token value.
-  - Copy the value and store it for later use.
-  - *Each API request requires a valid token, for example, when using cURL directly.*
-- Click **Submit** to make the API request and observe the response on the right.
-  - Copy the value of the principal name that is displayed for use in the next API request.
-```diff
-- Find the [`GET /principals/{p}`](https://sdc.splunkbeta.com/reference/api/identity/v2beta1#endpoint-getPrincipal) endpoint.
-```
-- Click **Console**.
-- Enter the value of the principal name in the form field. 
-- Click **Submit** to make the API request and observe the response on the right.
-  - Copy the value in the `tenants` array and store it for later use.
-  - *Each API request will need to target a specific tenant.*
+## Key concepts and terminology of Splunk Cloud Services
 
-***If you cannot complete these steps, please contact a Splunker and let them know where you're getting stuck!***
+Splunk Cloud Services is a collection of services exposed via REST APIs to enable fast and flexible app development. 
 
-## Get set up
+The most fundamental concepts to understand for this sample app are the identities and their relationships.
+- **Principals** represent an actor that makes API requests against Splunk Cloud Services.
+  - Users, apps, and service accounts are kinds of principals.
+- **Tenants** represent a way to contain and isolate the resources provided by Splunk Cloud Services.
+  - Splunk Cloud Services is multi-tenant. There is no separate deployment per customer as with Splunk Enterprise.
+  - API requests are all made in the context of a specific tenant.
+- Principals are allowed to make API requests against a tenant only if there exists a **membership**.
+  - The membership includes specific permissions granted to the principal within the tenant.
 
-Depending on what you choose to do during the workshop, you'll need to ensure your local development environment is set up to successfully submit API requests, and to access and run code examples and applications.
+<kbd>![SCS Identities Screenshot](./identities.png)</kbd>
 
-- [Splunk Cloud Services CLI](https://github.com/splunk/splunk-cloud-sdk-go/tree/master/cmd/scloud), or `scloud`, is a command-line tool that makes it easy to submit API requests against Splunk Cloud Services. Download and unpack the scloud binary [from the Releases section here](https://github.com/splunk/splunk-cloud-sdk-go/releases).
+
+
+## Set up your environment
+
+To ensure your local development environment is set up to successfully submit API requests, and to access and run code examples and applications, install the following tools:
+
+- [Splunk Cloud Services CLI](https://staging.developer.splunk.com/scs/docs/overview/tools/tools_scloud), or `scloud`, is a command-line tool that makes it easy to submit API requests against Splunk Cloud Services. Download and unpack the `scloud` binary from [GitHub](https://github.com/splunk/splunk-cloud-sdk-go/releases).
 - [cURL](https://curl.haxx.se/dlwiz/?type=bin) is a command-line tool that allows you to transfer data to or from a server. A number of example API requests on the Splunk Developer Portal make use of cURL. 
-- [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) is a source code management tool that allows you to run commands to access projects and keep track of changes to application files.
-- [Node.js](https://nodejs.org) is a JavaScript runtime environment that is required for a number of example applications accessed from the Splunk Developer Portal.
+- [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) is a source-code management tool that allows you to run commands to access projects and keep track of changes to application files.
+- [Node.js](https://nodejs.org) is a JavaScript runtime environment that is required for a number of example applications accessed from the Splunk Developer Portal. NodeJS version 8.3.0 or later is required for this app. 
 - [npm](https://www.npmjs.com/) is package manager that makes it easy for programmers to publish and share source code of Node.js libraries.
   - The npm client is installed with Node.js. 
-  - Make sure you are logged into npm via your command prompt before running `npm` or `npx` commands (`npm login`).
-- [Yarn](https://yarnpkg.com/en/docs/install) is another package manager that enables additional workflows for JavaScript applications, this is used to install packages and run commands in the Transit Dashboard App.
+  - Log in to npm (run `npm login`) before running `npm` or `npx` commands.
+- [Yarn](https://yarnpkg.com/en/docs/install) is a package manager that enables additional workflows for JavaScript applications. Yarn is used to install packages and run commands in the Transit Dashboard App. Yarn version 1.3.2 or later is required for this app.
 
-## Reproduce the demo!
 
-1. Create a folder on your computer where you want your project files to reside.
+### Clone the repo
 
-2. Clone this repo to create the `conf19-scp-workshop` folder:
+1. Create a folder on your computer for the project files.
+
+2. At the command line, navigate to the folder and run the following command to clone the `conf19-scp-workshop` repo: 
+
     ``` 
     $ git clone https://github.com/splunk/conf19-scp-workshop
     ```
 
-3. Follow the steps at [./demo/README.md](https://github.com/splunk/conf19-scp-workshop/blob/master/demo/README.md) to set up your tenant with a pipeline and to ingest sample data.
 
-4. Continue to [./transit_dashboard_app/README.md](https://github.com/splunk/conf19-scp-workshop/blob/master/transit_dashboard_app/README.md) to develop, build, and run the application.
+## Log in to Splunk Cloud Services and use the APIs
+
+To get started with Splunk Cloud Services, sign in to [Splunk Investigate](https://si.scp.Splunk.com) with your Splunk account and accept the Terms Of Service. 
+
+You can use the Splunk Cloud Services APIs in different ways, depending on your preference. Here are a couple of different ways to get information about your principal and see the tenants you are a member of.
+
+### Use the API Reference Console to explore the APIs 
+
+The API Reference Console is similar to using a Postman collection, allowing you to make Splunk Cloud Services REST API requests using pre-defined forms and view the formatted results. 
+
+<kbd>![API Console Screenshot](./api-console.png)</kbd>
+
+1. Log into the [Splunk Developer Portal](https://developer.splunk.com/scs) with your Splunk.com credentials.
+2. Navigate to the [API Reference](https://developer.splunk.com/scs/reference/) page.
+3. Select **Identity** from the list of services on the left, then click the [`GET /principals`](https://developer.splunk.com/scs/reference/api/identity/v2beta1#endpoint-listPrincipals) endpoint.
+4. In the main window under the endpoint, click **Console**. 
+5. Click **Show** to reveal your **Authorization token**.
+   
+   Each API request requires a valid token, for example, when using cURL directly. Because you are logged into the Splunk Developer Portal, your access token is automatically applied to requests.
+
+   - Copy the token value and store it for later use.
+
+6. Click **Submit** to make the API request to return your principal name. 
+
+   - Copy the value of the principal name that is displayed for use in the next API request.
+
+7. Under **Identity** from the list of services on the left, click the [`GET /principals/{p}`](https://developer.splunk.com/scs/reference/api/identity/v2beta1#endpoint-getPrincipal) endpoint.
+8. In the main window under the endpoint, click **Console**. 
+9. Enter your principal name copied from step 6 in the form field.
+10. Click **Submit** to make the API request to display details about your principal account.
+
+    Each API request will need to target a specific tenant. From the response, copy the value in the `tenants` array and store it for later use.
+
+
+### Use the Splunk Cloud Services CLI to explore APIs 
+
+For a more programmatic approach, use `scloud` at the command line to explore the Splunk Cloud Services APIs. 
+
+To log in at the command line, enter:
+
+    $ scloud -u <principal> login
+
+To get details about your user account (your principal), enter:
+
+    $ scloud identity get-principal <your-principal-name>
+
+
+
+## Set up a tenant with a data pipeline
+
+All incoming data moves through the Splunk Data Stream Processor (DSP). Data from REST APIs or Splunk Forwarders first flows through the Splunk Firehose. The Firehose aggregates your data into a single stream. From there, your data goes through a data pipeline where you can perform complex transformations and troubleshooting on your data before sending it to your indexers for searching.
+
+Indexes are defined as kind of dataset managed by the Catalog service, along with other datasets such as search job or kvstore lookup. Datasets are knowledge objects that contain data that can be read or written to.
+
+After events are indexed, they can be searched through an updated and refined Splunk Search Processing Language (SPL2). SPL2 uses a natural grammar that more closely resembles SQL. All the same `stats` and `eval` functions are still there, to allow you to create visualizations.
+
+<kbd>![Ingest and Search Screenshot](./ingest-search.png)</kbd>
+
+Before data can be ingested, your tenant must have a pipeline defined and activated to process the events. For this app, use `scloud` at the command line to create a simple passthrough pipeline that reads events from the Splunk Firehose and writes them to the "main" index. 
+
+Enter the following `scloud` commands: 
+
+    $ scloud set tenant <YOUR-TENANT-NAME>
+    
+    $ scloud streams compile-dsl -dsl-file passthrough.dsl > passthrough.upl
+    
+    $ scloud streams create-pipeline -name passthrough -bypass-validation true -data-file passthrough.upl
+
+
+_Make note of the `id` (the one that is returned underneath the `description` field). You'll need it for the next command._
+
+    
+    $ scloud streams activate-pipelines <PIPELINE-ID>
+
+
+
+
+## Get sample data in and out of your tenant
+    
+Once you have an activated pipeline, you can start sending events to your tenants using the Ingest service. 
+
+This repo includes two JSON files with sample data from Seattle transit agencies containing service and arrival/departure data for routes provide during a set period of time. 
+
+Run the following `scloud` commands to ingest the sample data files.
+
+On *nix:
+
+    $ tail agencies-with-coverage.json \
+        | scloud ingest post-events \
+            -host localhost \
+            -source agencies_with_coverage_json \
+            -sourcetype json_no_timestamp \
+            -format raw
+    
+    $ tail arrivals-and-departures.json \
+        | scloud ingest post-events \
+            -host localhost \
+            -source arrivals_and_departures_json \
+            -sourcetype json_no_timestamp \
+            -format raw
+
+On Windows: 
+
+    more arrivals-and-departures.json | scloud ingest post-events -host localhost -source arrivals_and_departures_json -sourcetype json_no_timestamp -format raw
+
+    more agencies-with-coverage.json | scloud ingest post-events -host localhost -source agencies_with_coverage_json -sourcetype json_no_timestamp -format raw
+
+
+### Explore the data through search
+
+After ingesting and passing the sample data through the pipeline, the data is indexed and available for search.
+
+Run the following commands to search the sample data files to see how many routes are currently active for each transit agency.
+
+On *nix:
+
+    $ scloud search "| from index:main where source=\"arrivals_and_departures_json\" \
+        | stats count() as refCount \
+        by 'data.references.agencies{}.name'" \
+          -earliest 0 \
+          -latest now
+
+On Windows: 
+
+    scloud search "from index:main where source=\"arrivals_and_departures_json\" | stats count() as refCount by 'data.references.agencies{}.name' " -earliest 0 -latest now
+
+
+### Use Splunk Investigate to get data in
+
+Go to [Splunk Investigate](https://si.scp.splunk.com/), select a tenant, click **Data**, then **Add Data** for wizards to help you get data in, set up and configure pipelines, and preview live data streaming into your pipeline!
+
+_Note: After data has been ingested, you can see the number of events passing through each node in your pipeline!_
+
+
+
+
+## Define the app and create a subscription
+
+A quick overview of apps in Splunk Cloud Services:
+
+-  **Apps** are self-hosted and run in isolation from Splunk Cloud Services. This model is different from Splunk Enterprise, where apps are installed to run alongside Splunk Enterprise. 
+-  **Apps** are use-case driven, where the use case doesn’t have to be about Splunk: apps use Splunk Cloud Services to solve problems. 
+-  **Apps** are developed with consistent integration points to Splunk Cloud Services. Apps all use the same APIs to configure, run, and develop apps.
+-  **Subscriptions** represent an authorization grant between an app and a tenant, and are required before any API requests can be made. Every subscription results in a webhook call back to the app, so that the app knows it can start.
+
+<kbd>![App Info Screenshot](./app-info.png)</kbd>
+
+To define the app and create a subscription with your tenant: 
+
+1. Create the app with a unique name and title.
+
+  Apps are defined in a "home tenant" so that Splunk Cloud Services knows about metadata such as name, description, required permissions, and webhooks that get triggered on subscription events.
+
+  _Note: App names and titles are unique across all tenants, so for this sample app, replace `<TENANT>` below with your tenant name._
+
+    $ scloud appreg create-app transit.demo.<TENANT> web \
+        -redirect-urls http://localhost:3000 \
+        -login-url https://auth.scp.splunk.com \
+        -title "Transit Dashboard Demo App for <TENANT>" \
+        -description "Copy of the transit dashboard demo app"
+
+  _Make note of the `<CLIENT_ID>` that is returned. You'll need it when configuring the Transit Dashboard App._
+
+2. Create a subscription between your tenant and the app
+
+    $ scloud appreg create-subscription transit.demo.<TENANT>
+
+
+## Build and run the Transit Dashboard App
+
+The Transit Dashboard App is a simple dashboard that displays transit route status by stop used by Seattle Transit. 
+
+![App screenshot](./app.png)
+
+To build and run the app: 
+
+1. At the command line, navigate to this `transit_dashboard_app` folder. 
+
+```diff
+REMOVE THIS STEP WHEN @splunk/dashboard-* GET RELEASED PUBLICLY:
+npm config set @splunk:registry https://repo.splunk.com/artifactory/api/npm/npm-solutions-local/
+
+```
+
+2. Install the dependencies by running the following command: 
+
+    ```
+    $ yarn
+    ```
+
+3.  In the **./src/config/config.json** file, update the following values: 
+    * Replace `YOUR CLIENT ID` with your client ID.
+    * Replace `YOUR TENANT ID` with your tenant name.
+
+4.  Start the example app in develop mode: 
+    
+    ```
+    $ yarn run start
+    ```
+
+5.  In a browser, open `localhost:3000` to view the app.
+
+
+
+
 
 ## Resources
 
-Take a look at the following pages for guidance and experimentation, and log in with your splunk.com username and password if/when prompted.
-
-```diff
-- Visit the Splunk Developer Portal at https://sdc.splunkbeta.com.
-```
-- Visit Splunk Investigate at https://si.scp.splunk.com to:
-  - Add/connect your data through pipelines and wizards.
-  - Search (with SPL2), analyze, investigate, and share your data with Workbooks.
-  - Visualize your data with dashboards, which are new and distinct from the Splunk Enterprise dashboards that you might already be familiar with.
-- **You only need to set up a pipeline once for a given module/dataset.** 
-  Most tutorials and examples will direct you to create a data pipeline, but you won't need to perform this step if you're comfortable with a new dataset flowing into the index via the pipeline you've already activated.
-
-
-## Challenge yourself!
-
-The first person to complete three (3) of the following challenges at your table will win a prize! Just show a Splunker proof of your work.
-- [ ] Complete the [demo exercises](https://github.com/splunk/conf19-scp-workshop/tree/master/demo) and get the Seattle Transit app running locally with dashboards.
-- [ ] Update the "passthrough" pipeline to perform a simple `eval` on incoming data.
-- [ ] Ingest your own dataset (something **not** found on the Splunk Developer Portal or https://github.com/splunk) and write it to an index other than `main`... and return the data via SPL2.
-  - [Amazon customer review data](https://s3.amazonaws.com/amazon-reviews-pds/readme.html)
-  - [Data.gov](https://www.data.gov/)
-  - [Open Data on AWS](https://registry.opendata.aws/)
-- [ ] Visualize insights from your own dataset in a dashboard.
-- [ ] Deploy and run an app you've set up locally to somewhere in the cloud (e.g. Heroku). *Hint: you'll need to work with the App Registry service after you've deployed the app and have a new URL its served from.*
-- [ ] Find all the datasets in your tenant using the Catalog service, find all the groups you're a member of using the Identity service, and find your permissions in your tenant using the Identity service.
-
-## Best bug!
-
-Whoever finds the *best platform or tool bug* will win a prize! Let a Splunker know if you think you've discovered a bug so we can confirm and consider it for the prize.
-
-*Documentation typos or errors are great and we want to hear about them, but only confirmed bugs will be considered for a prize.*
-
-## Keep it going!
-
-Remember, you're now a member of the Splunk Cloud Services beta, so keep exploring and experimenting with the beta after the workshop is over! 
-- <devinfo@splunk.com>
-- [#sdc](https://splunkdevplatform.slack.com/messages/CD44RNV7G) channel on Slack
+For more about the tools that were used to build this app, see: 
+- * [Splunk Cloud Services SDK for JavaScript](https://developer.splunk.com/scs/docs/overview/sdctools/tools_jssdk/), which uses JavaScript to communicate with the Splunk Cloud Services REST APIs.
+- * [Splunk Cloud Services Auth component](https://developer.splunk.com/scs/docs/overview/tools/tools_cloud-auth), which provides a UI for users to authenticate with Splunk Cloud Services.
+- * [Dashboard Framework](https://developer.splunk.com/scs/docs/dashviz), which contains a framework for working with dashboards and visualizations.
+- * [Create React App](https://github.com/facebook/create-react-app), for bootstrapping this app.
