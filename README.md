@@ -1,7 +1,6 @@
-# Transit Dashboard App Demo
+# Transit Dashboard App
 
-This repository contains the code for the Transit Dashboard App, which demonstrates how to create a dashboard in Splunk Cloud Services. This dashboard displays transit route status by stop used by Seattle Transit agencies. 
-
+This repository contains the code for the Transit Dashboard App, which uses Splunk Cloud Services to display a dashboard with transit route status by stop using data from Seattle Transit agencies. 
 
 This readme describes how to set up and use the Transit Dashboard App: 
 -  Key concepts and terminology of Splunk Cloud Services
@@ -12,14 +11,11 @@ This readme describes how to set up and use the Transit Dashboard App:
 -  Define the app and create a subscription
 -  Build and run the Transit Dashboard App
 
-
-
 ## Key concepts and terminology of Splunk Cloud Services
 
 Splunk Cloud Services is a collection of services exposed via REST APIs to enable fast and flexible app development. 
 
 <img alt="SCS Identities Screenshot" src="./data/identities.png" width="400">
-
 
 The most fundamental concepts to understand for this sample app are the identities and their relationships.
 - **Principals** represent an actor that makes API requests against Splunk Cloud Services.
@@ -29,8 +25,6 @@ The most fundamental concepts to understand for this sample app are the identiti
   - API requests are all made in the context of a specific tenant.
 - Principals are allowed to make API requests against a tenant only if there exists a **membership**.
   - The membership includes specific permissions granted to the principal within the tenant.
-
-
 
 ## Set up your environment
 
@@ -45,7 +39,6 @@ To ensure your local development environment is set up to successfully submit AP
   - Log in to npm (run `npm login`) before running `npm` or `npx` commands.
 - [Yarn](https://yarnpkg.com/en/docs/install) is a package manager that enables additional workflows for JavaScript applications. Yarn is used to install packages and run commands in the Transit Dashboard App. Yarn version 1.3.2 or later is required for this app.
 
-
 ### Clone the repo
 
 1. Create a folder on your computer for the project files.
@@ -55,7 +48,6 @@ To ensure your local development environment is set up to successfully submit AP
     ``` 
     $ git clone https://github.com/splunk/conf19-scp-workshop
     ```
-
 
 ## Log in to Splunk Cloud Services and use the APIs
 
@@ -68,7 +60,6 @@ You can use the Splunk Cloud Services APIs in different ways, depending on your 
 The API Reference Console is similar to using a Postman collection, allowing you to make Splunk Cloud Services REST API requests using pre-defined forms and view the formatted results. 
 
 <kbd>![API Console Screenshot](./data/api-console.png)</kbd>
-
 
 1. Log into the [Splunk Developer Portal](https://developer.splunk.com/scs) with your Splunk.com credentials.
 2. Navigate to the [API Reference](https://developer.splunk.com/scs/reference/) page.
@@ -91,7 +82,6 @@ The API Reference Console is similar to using a Postman collection, allowing you
 
     Each API request will need to target a specific tenant. From the response, copy the value in the `tenants` array and store it for later use.
 
-
 ### Use the Splunk Cloud Services CLI to explore APIs 
 
 For a more programmatic approach, use `scloud` at the command line to explore the Splunk Cloud Services APIs. 
@@ -108,8 +98,6 @@ To get details about your user account (your principal), enter:
 $ scloud identity get-principal <YOUR-PRINCIPAL-NAME>
 ```
 
-
-
 ## Set up a tenant with a data pipeline
 
 All incoming data moves through the Splunk Data Stream Processor (DSP). Data from REST APIs or Splunk Forwarders first flows through the Splunk Firehose. The Firehose aggregates your data into a single stream. From there, your data goes through a data pipeline where you can perform complex transformations and troubleshooting on your data before sending it to your indexers for searching.
@@ -119,7 +107,6 @@ Indexes are defined as kind of dataset managed by the Catalog service, along wit
 After events are indexed, they can be searched through an updated and refined Splunk Search Processing Language (SPL2). SPL2 uses a natural grammar that more closely resembles SQL. All the same `stats` and `eval` functions are still there, to allow you to create visualizations.
 
 <img alt="Ingest and Search Screenshot" src="./data/ingest-search.png" width="600">
-
 
 Before data can be ingested, your tenant must have a pipeline defined and activated to process the events. For this app, create a simple passthrough pipeline that reads events from the Splunk Firehose and writes them to the "main" index. 
 
@@ -140,8 +127,6 @@ To activate the pipeline:
 ```
 $ scloud streams activate-pipelines <PIPELINE-ID>
 ```
-
-
 
 ## Get sample data in and out of your tenant
     
@@ -206,8 +191,6 @@ Go to [Splunk Investigate](https://si.scp.splunk.com/), select a tenant, click *
 **Note:** After data has been ingested, you can see the number of events passing through each node in your pipeline.
 
 
-
-
 ## Define the app and create a subscription
 
 A quick overview of apps in Splunk Cloud Services:
@@ -243,7 +226,6 @@ To define the app and create a subscription with your tenant:
     $ scloud appreg create-subscription transit.demo.<TENANT>
     ```
 
-
 ## Build and run the Transit Dashboard App
 
 The Transit Dashboard App is a simple dashboard that displays transit route status by stop used by Seattle Transit. 
@@ -278,11 +260,9 @@ npm config set @splunk:registry https://repo.splunk.com/artifactory/api/npm/npm-
 
 5.  In a browser, open `localhost:3000` to view the app.
 
-
-
-
-
 ## Resources
+
+For more information about Splunk Cloud Services, see the [Splunk Developer Portal](https://developer.splunk.com/scs/).
 
 For more about the tools that were used to build this app, see: 
 - [Splunk Cloud Services SDK for JavaScript](https://developer.splunk.com/scs/docs/overview/sdctools/tools_jssdk/), which uses JavaScript to communicate with the Splunk Cloud Services REST APIs.
