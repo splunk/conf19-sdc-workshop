@@ -27,7 +27,7 @@ The most fundamental concepts to understand for this sample app are the identiti
 - Principals are allowed to make API requests against a tenant only if there exists a **membership**.
   - The membership includes specific permissions granted to the principal within the tenant.
 
-<kbd>![SCS Identities Screenshot](/demo/identities.png)</kbd>
+<kbd>![SCS Identities Screenshot](./demo/identities.png)</kbd>
 
 
 
@@ -49,7 +49,7 @@ To ensure your local development environment is set up to successfully submit AP
 
 1. Create a folder on your computer for the project files.
 
-2. At the command line, navigate to the folder and run the following command to clone the `conf19-scp-workshop` repo: 
+2. At the command line, navigate to the folder and run the following command to clone this repo: 
 
     ``` 
     $ git clone https://github.com/splunk/conf19-scp-workshop
@@ -66,7 +66,7 @@ You can use the Splunk Cloud Services APIs in different ways, depending on your 
 
 The API Reference Console is similar to using a Postman collection, allowing you to make Splunk Cloud Services REST API requests using pre-defined forms and view the formatted results. 
 
-<kbd>![API Console Screenshot](/demo/api-console.png)</kbd>
+<kbd>![API Console Screenshot](./demo/api-console.png)</kbd>
 
 1. Log into the [Splunk Developer Portal](https://developer.splunk.com/scs) with your Splunk.com credentials.
 2. Navigate to the [API Reference](https://developer.splunk.com/scs/reference/) page.
@@ -96,11 +96,15 @@ For a more programmatic approach, use `scloud` at the command line to explore th
 
 To log in at the command line, enter:
 
-    $ scloud -u <principal> login
+```
+$ scloud -u <principal> login
+```
 
 To get details about your user account (your principal), enter:
 
-    $ scloud identity get-principal <your-principal-name>
+```
+$ scloud identity get-principal <your-principal-name>
+```
 
 
 
@@ -112,24 +116,25 @@ Indexes are defined as kind of dataset managed by the Catalog service, along wit
 
 After events are indexed, they can be searched through an updated and refined Splunk Search Processing Language (SPL2). SPL2 uses a natural grammar that more closely resembles SQL. All the same `stats` and `eval` functions are still there, to allow you to create visualizations.
 
-<kbd>![Ingest and Search Screenshot](/demo/ingest-search.png)</kbd>
+<kbd>![Ingest and Search Screenshot](./demo/ingest-search.png)</kbd>
 
 Before data can be ingested, your tenant must have a pipeline defined and activated to process the events. For this app, use `scloud` at the command line to create a simple passthrough pipeline that reads events from the Splunk Firehose and writes them to the "main" index. 
 
 Enter the following `scloud` commands: 
 
-    $ scloud set tenant <YOUR-TENANT-NAME>
-    
-    $ scloud streams compile-dsl -dsl-file passthrough.dsl > passthrough.upl
-    
-    $ scloud streams create-pipeline -name passthrough -bypass-validation true -data-file passthrough.upl
+```
+$ scloud set tenant <YOUR-TENANT-NAME>
 
+$ scloud streams compile-dsl -dsl-file passthrough.dsl > passthrough.upl
+
+$ scloud streams create-pipeline -name passthrough -bypass-validation true -data-file passthrough.upl
+```
 
 _Make note of the `id` (the one that is returned underneath the `description` field). You'll need it for the next command._
 
-    
-    $ scloud streams activate-pipelines <PIPELINE-ID>
-
+```
+$ scloud streams activate-pipelines <PIPELINE-ID>
+```
 
 
 
@@ -143,26 +148,29 @@ Run the following `scloud` commands to ingest the sample data files.
 
 On *nix:
 
-    $ tail agencies-with-coverage.json \
-        | scloud ingest post-events \
-            -host localhost \
-            -source agencies_with_coverage_json \
-            -sourcetype json_no_timestamp \
-            -format raw
-    
-    $ tail arrivals-and-departures.json \
-        | scloud ingest post-events \
-            -host localhost \
-            -source arrivals_and_departures_json \
-            -sourcetype json_no_timestamp \
-            -format raw
+```
+$ tail agencies-with-coverage.json \
+    | scloud ingest post-events \
+        -host localhost \
+        -source agencies_with_coverage_json \
+        -sourcetype json_no_timestamp \
+        -format raw
+
+$ tail arrivals-and-departures.json \
+    | scloud ingest post-events \
+        -host localhost \
+        -source arrivals_and_departures_json \
+        -sourcetype json_no_timestamp \
+        -format raw
+```
 
 On Windows: 
 
-    more arrivals-and-departures.json | scloud ingest post-events -host localhost -source arrivals_and_departures_json -sourcetype json_no_timestamp -format raw
+```
+more arrivals-and-departures.json | scloud ingest post-events -host localhost -source arrivals_and_departures_json -sourcetype json_no_timestamp -format raw
 
-    more agencies-with-coverage.json | scloud ingest post-events -host localhost -source agencies_with_coverage_json -sourcetype json_no_timestamp -format raw
-
+more agencies-with-coverage.json | scloud ingest post-events -host localhost -source agencies_with_coverage_json -sourcetype json_no_timestamp -format raw
+```
 
 ### Explore the data through search
 
@@ -172,16 +180,19 @@ Run the following commands to search the sample data files to see how many route
 
 On *nix:
 
-    $ scloud search "| from index:main where source=\"arrivals_and_departures_json\" \
-        | stats count() as refCount \
-        by 'data.references.agencies{}.name'" \
-          -earliest 0 \
-          -latest now
+```
+$ scloud search "| from index:main where source=\"arrivals_and_departures_json\" \
+    | stats count() as refCount \
+    by 'data.references.agencies{}.name'" \
+      -earliest 0 \
+      -latest now
+```
 
 On Windows: 
 
-    scloud search "from index:main where source=\"arrivals_and_departures_json\" | stats count() as refCount by 'data.references.agencies{}.name' " -earliest 0 -latest now
-
+```
+scloud search "from index:main where source=\"arrivals_and_departures_json\" | stats count() as refCount by 'data.references.agencies{}.name' " -earliest 0 -latest now
+```
 
 ### Use Splunk Investigate to get data in
 
@@ -201,7 +212,7 @@ A quick overview of apps in Splunk Cloud Services:
 -  **Apps** are developed with consistent integration points to Splunk Cloud Services. Apps all use the same APIs to configure, run, and develop apps.
 -  **Subscriptions** represent an authorization grant between an app and a tenant, and are required before any API requests can be made. Every subscription results in a webhook call back to the app, so that the app knows it can start.
 
-<kbd>![App Info Screenshot](/demo/app-info.png)</kbd>
+<kbd>![App Info Screenshot](./demo/app-info.png)</kbd>
 
 To define the app and create a subscription with your tenant: 
 
@@ -211,24 +222,28 @@ To define the app and create a subscription with your tenant:
 
     **Note:** App names and titles are unique across all tenants, so for this sample app, replace `<TENANT>` below with your tenant name.
 
+    ```
     $ scloud appreg create-app transit.demo.<TENANT> web \
         -redirect-urls http://localhost:3000 \
         -login-url https://auth.scp.splunk.com \
         -title "Transit Dashboard Demo App for <TENANT>" \
         -description "Copy of the transit dashboard demo app"
+    ```
 
     _Make note of the `<CLIENT_ID>` that is returned. You'll need it when configuring the Transit Dashboard App._
 
 2. Create a subscription between your tenant and the app
 
+    ```
     $ scloud appreg create-subscription transit.demo.<TENANT>
+    ```
 
 
 ## Build and run the Transit Dashboard App
 
 The Transit Dashboard App is a simple dashboard that displays transit route status by stop used by Seattle Transit. 
 
-![App screenshot](/demo/app.png)
+![App screenshot](./transit_dashboard_app/app.png)
 
 To build and run the app: 
 
