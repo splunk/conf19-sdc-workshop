@@ -27,7 +27,7 @@ The most fundamental concepts to understand for this sample app are the identiti
 - Principals are allowed to make API requests against a tenant only if there exists a **membership**.
   - The membership includes specific permissions granted to the principal within the tenant.
 
-<kbd>![SCS Identities Screenshot](./data/identities.png)</kbd>
+<kbd>![SCS Identities Screenshot width=600](./data/identities.png)</kbd>
 
 
 
@@ -66,7 +66,7 @@ You can use the Splunk Cloud Services APIs in different ways, depending on your 
 
 The API Reference Console is similar to using a Postman collection, allowing you to make Splunk Cloud Services REST API requests using pre-defined forms and view the formatted results. 
 
-<kbd>![API Console Screenshot](./data/api-console.png)</kbd>
+<kbd>![API Console Screenshot width=600](./data/api-console.png)</kbd>
 
 1. Log into the [Splunk Developer Portal](https://developer.splunk.com/scs) with your Splunk.com credentials.
 2. Navigate to the [API Reference](https://developer.splunk.com/scs/reference/) page.
@@ -116,7 +116,7 @@ Indexes are defined as kind of dataset managed by the Catalog service, along wit
 
 After events are indexed, they can be searched through an updated and refined Splunk Search Processing Language (SPL2). SPL2 uses a natural grammar that more closely resembles SQL. All the same `stats` and `eval` functions are still there, to allow you to create visualizations.
 
-<kbd>![Ingest and Search Screenshot](./data/ingest-search.png)</kbd>
+<kbd>![Ingest and Search Screenshot width=600](./data/ingest-search.png)</kbd>
 
 Before data can be ingested, your tenant must have a pipeline defined and activated to process the events. For this app, create a simple passthrough pipeline that reads events from the Splunk Firehose and writes them to the "main" index. 
 
@@ -214,7 +214,7 @@ A quick overview of apps in Splunk Cloud Services:
 -  **Apps** are developed with consistent integration points to Splunk Cloud Services. Apps all use the same APIs to configure, run, and develop apps.
 -  **Subscriptions** represent an authorization grant between an app and a tenant, and are required before any API requests can be made. Every subscription results in a webhook call back to the app, so that the app knows it can start.
 
-<kbd>![App Info Screenshot](./data/app-info.png)</kbd>
+<kbd>![App Info Screenshot width=600](./data/app-info.png)</kbd>
 
 To define the app and create a subscription with your tenant: 
 
