@@ -235,7 +235,7 @@ To define the app and create a subscription with your tenant:
         -description "Copy of the transit dashboard demo app"
     ```
 
-    _Make note of the `<CLIENT_ID>` that is returned. You'll need it when configuring the Transit Dashboard App._
+    Make note of the `<CLIENT_ID>` that is returned. You'll need it when configuring the Transit Dashboard App.
 
 2. Create a subscription between your tenant and the app
 
