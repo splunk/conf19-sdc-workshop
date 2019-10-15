@@ -27,8 +27,11 @@ The most fundamental concepts to understand for this sample app are the identiti
 - Principals are allowed to make API requests against a tenant only if there exists a **membership**.
   - The membership includes specific permissions granted to the principal within the tenant.
 
+
 <img alt="SCS Identities Screenshot" src="./data/identities.png" width="500">
 
+
+<kbd></kbd>
 
 
 ## Set up your environment
@@ -67,6 +70,9 @@ You can use the Splunk Cloud Services APIs in different ways, depending on your 
 The API Reference Console is similar to using a Postman collection, allowing you to make Splunk Cloud Services REST API requests using pre-defined forms and view the formatted results. 
 
 <kbd>![API Console Screenshot](./data/api-console.png)</kbd>
+
+
+![API Console Screenshot](./data/api-console.png)
 
 1. Log into the [Splunk Developer Portal](https://developer.splunk.com/scs) with your Splunk.com credentials.
 2. Navigate to the [API Reference](https://developer.splunk.com/scs/reference/) page.
