@@ -31,9 +31,6 @@ The most fundamental concepts to understand for this sample app are the identiti
 <img alt="SCS Identities Screenshot" src="./data/identities.png" width="500">
 
 
-<kbd></kbd>
-
-
 ## Set up your environment
 
 To ensure your local development environment is set up to successfully submit API requests, and to access and run code examples and applications, install the following tools:
@@ -71,8 +68,6 @@ The API Reference Console is similar to using a Postman collection, allowing you
 
 <kbd>![API Console Screenshot](./data/api-console.png)</kbd>
 
-
-![API Console Screenshot](./data/api-console.png)
 
 1. Log into the [Splunk Developer Portal](https://developer.splunk.com/scs) with your Splunk.com credentials.
 2. Navigate to the [API Reference](https://developer.splunk.com/scs/reference/) page.
@@ -122,7 +117,8 @@ Indexes are defined as kind of dataset managed by the Catalog service, along wit
 
 After events are indexed, they can be searched through an updated and refined Splunk Search Processing Language (SPL2). SPL2 uses a natural grammar that more closely resembles SQL. All the same `stats` and `eval` functions are still there, to allow you to create visualizations.
 
-<kbd>![Ingest and Search Screenshot](./data/ingest-search.png)</kbd>
+<img alt="Ingest and Search Screenshot" src="./data/ingest-search.png" width="500">
+
 
 Before data can be ingested, your tenant must have a pipeline defined and activated to process the events. For this app, create a simple passthrough pipeline that reads events from the Splunk Firehose and writes them to the "main" index. 
 
