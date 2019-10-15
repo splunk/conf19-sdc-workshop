@@ -44,7 +44,7 @@ To ensure your local development environment is set up to successfully submit AP
 
 2. At the command line, navigate to the folder and run the following command: 
 
-    ``` 
+    ```bash
     $ git clone https://github.com/splunk/conf19-sdc-workshop
     ```
 
@@ -85,14 +85,23 @@ For a more programmatic approach, use `scloud` at the command line to explore th
 
 To log in at the command line, enter:
 
-```
+```bash
 $ scloud -u <YOUR-PRINCIPAL-NAME> login
 ```
 
 To get details about your user account (your principal), enter:
 
-```
+```bash
 $ scloud identity get-principal <YOUR-PRINCIPAL-NAME>
+```
+
+To set up environment variables you will need for this demo, enter
+```bash
+    export SOURCE_INDEX=<index> # an index prefixed with your initials, e.g. ag1
+    export SCS_TENANT=<tenantname> # a tenant name, e.g. bardhiconf
+    export SCS_TOKEN=<token> # token from the scloud login command
+    export SCS_PIPELINE=<pipelinename> # prefix with your name, e.g. bardhi-passthrough
+    export SCS_USER=<username> # your SCS username
 ```
 
 ## Set up a tenant with a data pipeline
@@ -109,25 +118,25 @@ Before data can be ingested, your tenant must have a pipeline defined and activa
 
 To access pipeline dsl and sample data files, enter the `data` directory:
 
-```
+```bash
 $ cd data
 ```
 
 To create a passthrough pipeline, enter the following `scloud` commands:
 
-```
+```bash
 $ scloud set tenant <YOUR-TENANT-NAME>
 
 $ scloud streams compile-dsl -dsl-file passthrough.dsl > passthrough.upl
 
-$ scloud streams create-pipeline -name passthrough -bypass-validation true -data-file passthrough.upl
+$ scloud streams create-pipeline -name <SCS_PIPELINE> -bypass-validation true -data-file passthrough.upl
 ```
 
 Make note of the `id` (the one that is returned underneath the `description` field). You'll need it for the next command.
 
 To activate the pipeline: 
 
-```
+```bash
 $ scloud streams activate-pipelines <PIPELINE-ID>
 ```
 
@@ -141,25 +150,25 @@ Run the following `scloud` commands to ingest the sample data files.
 
 On *nix:
 
-```
+```bash
 $ cat agencies-with-coverage.json \
     | scloud ingest post-events \
         -host localhost \
-        -source agencies_with_coverage_json \
+        -source agencies_with_coverage_json_${SOURCE_INDEX} \
         -sourcetype json_no_timestamp \
         -format raw
 
 $ cat arrivals-and-departures.json \
     | scloud ingest post-events \
         -host localhost \
-        -source arrivals_and_departures_json \
+        -source arrivals_and_departures_json_${SOURCE_INDEX} \
         -sourcetype json_no_timestamp \
         -format raw
 ```
 
 On Windows: 
 
-```
+```bash
 more arrivals-and-departures.json | scloud ingest post-events -host localhost -source arrivals_and_departures_json -sourcetype json_no_timestamp -format raw
 
 more agencies-with-coverage.json | scloud ingest post-events -host localhost -source agencies_with_coverage_json -sourcetype json_no_timestamp -format raw
@@ -173,8 +182,8 @@ Run the following commands to search the sample data files to see how many route
 
 On *nix:
 
-```
-$ scloud search "| from index:main where source=\"arrivals_and_departures_json\" \
+```bash
+$ scloud search "| from index:main where source=\"arrivals_and_departures_json_${SOURCE_INDEX}\" \
     | stats count() as refCount \
     by 'data.references.agencies{}.name'" \
       -earliest 0 \
@@ -183,8 +192,19 @@ $ scloud search "| from index:main where source=\"arrivals_and_departures_json\"
 
 On Windows: 
 
-```
+```bash
 scloud search "from index:main where source=\"arrivals_and_departures_json\" | stats count() as refCount by 'data.references.agencies{}.name' " -earliest 0 -latest now
+```
+
+Search through CURL:
+
+```bash
+    curl -X POST "https://api.scp.splunk.com/${SCS_TENANT}/search/v2beta1/jobs" \
+    -H "Authorization: Bearer $SCS_TOKEN" \
+    -d "{            \"query\": \"from index:main where source=\\\"arrivals_and_departures_json_${SOURCE_INDEX}\\\" | stats count() as refCount by 'data.references.agencies{}.name'\"        }" | jq
+
+    curl -X GET "https://api.scp.splunk.com/${SCS_TENANT}/search/v2beta1/jobs/{sid}/results" -H "Authorization: Bearer $SCS_TOKEN" | jq
+"
 ```
 
 ### Use Splunk Investigate to get data in
@@ -214,10 +234,10 @@ To define the app and create a subscription with your tenant:
     **Note:** App names and titles are unique across all tenants, so for this sample app, replace `<TENANT>` below with your tenant name.
 
     ```
-    $ scloud appreg create-app transit.demo.<TENANT> web \
+    $ scloud appreg create-app transit.demo.${SSC_USER} web \
         -redirect-urls http://localhost:3000 \
         -login-url https://auth.scp.splunk.com \
-        -title "Transit Dashboard Demo App for <TENANT>" \
+        -title "Transit Dashboard Demo App for ${SCS_TENANT}" \
         -description "Copy of the transit dashboard demo app"
     ```
 
@@ -226,7 +246,7 @@ To define the app and create a subscription with your tenant:
 2. Create a subscription between your tenant and the app
 
     ```
-    $ scloud appreg create-subscription transit.demo.<TENANT>
+    $ scloud appreg create-subscription transit.demo.${SSC_USER}
     ```
 
 ## Build and run the Transit Dashboard App
@@ -262,6 +282,16 @@ npm config set @splunk:registry https://repo.splunk.com/artifactory/api/npm/npm-
     ```
 
 5.  In a browser, open `localhost:3000` to view the app.
+
+## Cleanup
+
+To clean up, delete the pipeline by running:
+
+```bash
+    scloud appreg delete-subscription transit.demo.${SSC_USER}
+    scloud appreg delete-app transit.demo.${SSC_USER}
+    scloud streams delete-pipeline <PIPELINE-ID>
+```
 
 ## Resources
 
