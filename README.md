@@ -110,6 +110,12 @@ After events are indexed, they can be searched through an updated and refined Sp
 
 Before data can be ingested, your tenant must have a pipeline defined and activated to process the events. For this app, create a simple passthrough pipeline that reads events from the Splunk Firehose and writes them to the "main" index. 
 
+To access pipeline dsl and sample data files, enter the `data` directory:
+
+```
+$ cd data
+```
+
 To create a passthrough pipeline, enter the following `scloud` commands:
 
 ```
@@ -139,14 +145,14 @@ Run the following `scloud` commands to ingest the sample data files.
 On *nix:
 
 ```
-$ tail agencies-with-coverage.json \
+$ cat agencies-with-coverage.json \
     | scloud ingest post-events \
         -host localhost \
         -source agencies_with_coverage_json \
         -sourcetype json_no_timestamp \
         -format raw
 
-$ tail arrivals-and-departures.json \
+$ cat arrivals-and-departures.json \
     | scloud ingest post-events \
         -host localhost \
         -source arrivals_and_departures_json \
