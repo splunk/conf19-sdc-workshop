@@ -45,7 +45,7 @@ To ensure your local development environment is set up to successfully submit AP
 2. At the command line, navigate to the folder and run the following command: 
 
     ``` 
-    $ git clone https://github.com/splunk/conf19-scp-workshop
+    $ git clone https://github.com/splunk/conf19-sdc-workshop
     ```
 
 ## Log in to Splunk Cloud Services and use the APIs
