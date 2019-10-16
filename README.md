@@ -2,7 +2,7 @@
 
 This repository contains the code for the Transit Dashboard App, which uses Splunk Cloud Services to display a dashboard with transit route status by stop using data from Seattle Transit agencies. 
 
-This readme describes how to set up and use the Transit Dashboard App: 
+This readme contains the following sections: 
 -  Key concepts and terminology of Splunk Cloud Services
 -  Set up your environment
 -  Log in to Splunk Cloud Services and use the APIs
@@ -31,9 +31,8 @@ The most fundamental concepts to understand for this sample app are the identiti
 To ensure your local development environment is set up to successfully submit API requests, and to access and run code examples and applications, install the following tools:
 
 - [Splunk Cloud Services CLI](https://staging.developer.splunk.com/scs/docs/overview/tools/tools_scloud), or `scloud`, is a command-line tool that makes it easy to submit API requests against Splunk Cloud Services. Download and unpack the `scloud` binary from [GitHub](https://github.com/splunk/splunk-cloud-sdk-go/releases).
-- [cURL](https://curl.haxx.se/dlwiz/?type=bin) is a command-line tool that allows you to transfer data to or from a server. A number of example API requests on the Splunk Developer Portal make use of cURL. 
 - [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) is a source-code management tool that allows you to run commands to access projects and keep track of changes to application files.
-- [Node.js](https://nodejs.org) is a JavaScript runtime environment that is required for a number of example applications accessed from the Splunk Developer Portal. NodeJS version 8.3.0 or later is required for this app. 
+- [Node.js](https://nodejs.org) is a JavaScript runtime environment that is required for a number of example applications accessed from the Splunk Developer Portal. Node.js version 8.3.0 or later is required for this app. 
 - [npm](https://www.npmjs.com/) is package manager that makes it easy for programmers to publish and share source code of Node.js libraries.
   - The npm client is installed with Node.js. 
   - Log in to npm (run `npm login`) before running `npm` or `npx` commands.
@@ -43,7 +42,7 @@ To ensure your local development environment is set up to successfully submit AP
 
 1. Create a folder on your computer for the project files.
 
-2. At the command line, navigate to the folder and run the following command to clone this repo: 
+2. At the command line, navigate to the folder and run the following command: 
 
     ``` 
     $ git clone https://github.com/splunk/conf19-scp-workshop
@@ -67,9 +66,7 @@ The API Reference Console is similar to using a Postman collection, allowing you
 4. In the main window under the endpoint, click **Console**. 
 5. Click **Show** to reveal your **Authorization token**.
    
-   Each API request requires a valid token, for example, when using cURL directly. Because you are logged into the Splunk Developer Portal, your access token is automatically applied to requests.
-
-   - Copy the token value and store it for later use.
+   Each API request requires a valid token, for example, when using cURL directly. Because you are logged into the Splunk Developer Portal, your access token is automatically applied to requests. Tokens expire after one hour.
 
 6. Click **Submit** to make the API request to return your principal name. 
 
@@ -80,7 +77,7 @@ The API Reference Console is similar to using a Postman collection, allowing you
 9. Enter your principal name copied from step 6 in the form field.
 10. Click **Submit** to make the API request to display details about your principal account.
 
-    Each API request will need to target a specific tenant. From the response, copy the value in the `tenants` array and store it for later use.
+    - From the response, copy the value in the `tenants` array and store it for later use. Each API request will need to target a specific tenant. 
 
 ### Use the Splunk Cloud Services CLI to explore APIs 
 
