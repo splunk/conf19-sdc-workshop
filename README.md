@@ -288,8 +288,8 @@ npm config set @splunk:registry https://repo.splunk.com/artifactory/api/npm/npm-
 To clean up, delete the pipeline by running:
 
 ```bash
-    scloud appreg delete-subscription transit.demo.${SSC_USER}
-    scloud appreg delete-app transit.demo.${SSC_USER}
+    scloud appreg delete-subscription transit.demo.${SCS_USER}
+    scloud appreg delete-app transit.demo.${SCS_USER}
     scloud streams delete-pipeline <PIPELINE-ID>
 ```
 
