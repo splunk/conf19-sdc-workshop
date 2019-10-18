@@ -19,7 +19,7 @@ import DashboardCore from '@splunk/dashboard-core';
 import DefaultPreset from '@splunk/dashboard-presets/DefaultPreset';
 import authClient from './auth';
 import { tenantId, cloudApiUrl } from './config/config.json';
-import definition from './definition';
+import definition from './definition.json';
 
 export default () => (
     <div>
