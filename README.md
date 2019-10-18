@@ -15,7 +15,7 @@ This readme contains the following sections:
 
 Splunk Cloud Services is a collection of services exposed via REST APIs to enable fast and flexible app development. 
 
-<img alt="SCS Identities Screenshot" src="./data/identities.png" width="400">
+<img alt="SCS Identities Screenshot" src="./img/identities.png" width="400">
 
 The most fundamental concepts to understand for this sample app are the identities and their relationships.
 - **Principals** represent an actor that makes API requests against Splunk Cloud Services.
@@ -58,7 +58,7 @@ You can use the Splunk Cloud Services APIs in different ways, depending on your 
 
 The API Reference Console is similar to using a Postman collection, allowing you to make Splunk Cloud Services REST API requests using pre-defined forms and view the formatted results. 
 
-<kbd>![API Console Screenshot](./data/api-console.png)</kbd>
+<kbd>![API Console Screenshot](./img/api-console.png)</kbd>
 
 1. Log into the [Splunk Developer Portal](https://developer.splunk.com/scs) with your Splunk.com credentials.
 2. Navigate to the [API Reference](https://developer.splunk.com/scs/reference/) page.
@@ -103,7 +103,7 @@ Indexes are defined as kind of dataset managed by the Catalog service, along wit
 
 After events are indexed, they can be searched through an updated and refined Splunk Search Processing Language (SPL2). SPL2 uses a natural grammar that more closely resembles SQL. All the same `stats` and `eval` functions are still there, to allow you to create visualizations.
 
-<img alt="Ingest and Search Screenshot" src="./data/ingest-search.png" width="600">
+<img alt="Ingest and Search Screenshot" src="./img/ingest-search.png" width="600">
 
 Before data can be ingested, your tenant must have a pipeline defined and activated to process the events. For this app, create a simple passthrough pipeline that reads events from the Splunk Firehose and writes them to the "main" index. 
 
@@ -203,7 +203,7 @@ A quick overview of apps in Splunk Cloud Services:
 -  **Apps** are developed with consistent integration points to Splunk Cloud Services. Apps all use the same APIs to configure, run, and develop apps.
 -  **Subscriptions** represent an authorization grant between an app and a tenant, and are required before any API requests can be made. Every subscription results in a webhook call back to the app, so that the app knows it can start.
 
-<img alt="App Info Screenshot" src="./data/app-info.png" width="500">
+<img alt="App Info Screenshot" src="./img/app-info.png" width="500">
 
 To define the app and create a subscription with your tenant: 
 
@@ -233,7 +233,7 @@ To define the app and create a subscription with your tenant:
 
 The Transit Dashboard App is a simple dashboard that displays transit route status by stop used by Seattle Transit. 
 
-<img alt="App screenshot" src="./transit_dashboard_app/app.png" width="600">
+<img alt="App screenshot" src="./img/app.png" width="600">
 
 To build and run the app: 
 
