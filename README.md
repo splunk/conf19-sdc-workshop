@@ -101,7 +101,7 @@ To set up environment variables you will need for this demo, enter
     export SCS_TENANT=<tenantname> # a tenant name, e.g. bardhiconf
     export SCS_TOKEN=<token> # token from the scloud login command
     export SCS_PIPELINE=<pipelinename> # prefix with your name, e.g. bardhi-passthrough
-    export SCS_USER=<username> # your SCS username
+    export SCS_USER=<username> # your login user, e.g. bshtylla. do NOT include the @splunk.com part.
 ```
 
 ## Set up a tenant with a data pipeline
@@ -125,11 +125,14 @@ $ cd data
 To create a passthrough pipeline, enter the following `scloud` commands:
 
 ```bash
-$ scloud set tenant <YOUR-TENANT-NAME>
+$ scloud set tenant ${SCS_TENANT}
 
 $ scloud streams compile-dsl -dsl-file passthrough.dsl > passthrough.upl
 
-$ scloud streams create-pipeline -name <SCS_PIPELINE> -bypass-validation true -data-file passthrough.upl
+$ scloud streams create-pipeline -name ${SCS_PIPELINE} -bypass-validation true -data-file passthrough.upl
+
+$ export SCS_PIPELINE_ID=<PIPELINE-ID> # the pipeline id from above
+
 ```
 
 Make note of the `id` (the one that is returned underneath the `description` field). You'll need it for the next command.
@@ -137,7 +140,7 @@ Make note of the `id` (the one that is returned underneath the `description` fie
 To activate the pipeline: 
 
 ```bash
-$ scloud streams activate-pipelines <PIPELINE-ID>
+$ scloud streams activate-pipelines ${SCS_PIPELINE_ID}
 ```
 
 ## Get sample data in and out of your tenant
@@ -290,7 +293,7 @@ To clean up, delete the pipeline by running:
 ```bash
     scloud appreg delete-subscription transit.demo.${SCS_USER}
     scloud appreg delete-app transit.demo.${SCS_USER}
-    scloud streams delete-pipeline <PIPELINE-ID>
+    scloud streams delete-pipeline ${SCS_PIPELINE_ID}
 ```
 
 ## Resources
