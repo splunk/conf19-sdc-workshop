@@ -207,7 +207,6 @@ Search through CURL:
     -d "{            \"query\": \"from index:main where source=\\\"arrivals_and_departures_json_${SOURCE_INDEX}\\\" | stats count() as refCount by 'data.references.agencies{}.name'\"        }" | jq
 
     curl -X GET "https://api.scp.splunk.com/${SCS_TENANT}/search/v2beta1/jobs/{sid}/results" -H "Authorization: Bearer $SCS_TOKEN" | jq
-"
 ```
 
 ### Use Splunk Investigate to get data in
@@ -237,7 +236,7 @@ To define the app and create a subscription with your tenant:
     **Note:** App names and titles are unique across all tenants, so for this sample app, replace `<TENANT>` below with your tenant name.
 
     ```
-    $ scloud appreg create-app transit.demo.${SSC_USER} web \
+    $ scloud appreg create-app transit.demo.${SCS_USER} web \
         -redirect-urls http://localhost:3000 \
         -login-url https://auth.scp.splunk.com \
         -title "Transit Dashboard Demo App for ${SCS_TENANT}" \
@@ -249,7 +248,7 @@ To define the app and create a subscription with your tenant:
 2. Create a subscription between your tenant and the app
 
     ```
-    $ scloud appreg create-subscription transit.demo.${SSC_USER}
+    $ scloud appreg create-subscription transit.demo.${SCS_USER}
     ```
 
 ## Build and run the Transit Dashboard App
